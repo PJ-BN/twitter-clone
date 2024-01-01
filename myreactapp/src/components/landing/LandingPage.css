@@ -1,0 +1,58 @@
+/* LandingPage.css */
+
+.landing-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.landing-header {
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.cta-section {
+    margin-bottom: 40px;
+}
+
+.signup-button {
+    background-color: #1da1f2;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-button:hover {
+    background-color: #0e7bd5;
+}
+
+.landing-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-button {
+    background-color: #3498db;
+    /* Button background color */
+    color: #ecf0f1;
+    /* Text color */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    /* Adjust spacing between buttons */
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #2980b9;
+    /* Darker button background color on hover */
+}
