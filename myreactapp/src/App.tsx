@@ -1,14 +1,13 @@
+// App.tsx
 import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
-import TestApi from './components/testapi'
+import Navigation from './components/navigation/Navigation';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-    <TestApi />
-    </>
+    <div>
+      <Navigation />
+    </div>
   );
-}
+};
 
 export default App;
