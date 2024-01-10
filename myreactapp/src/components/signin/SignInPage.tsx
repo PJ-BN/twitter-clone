@@ -1,5 +1,6 @@
 // SignInPage.tsx
-import React, { useState, FormEvent } from 'react';
+import React, {  useState, FormEvent } from 'react';
+
 import './SignInPage.css';
 
 interface SignInPageProps {}
@@ -13,6 +14,47 @@ const SignInPage: React.FC<SignInPageProps> = () => {
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
+    
+  interface MyData {
+    key1: string;
+    key2: string;
+    key3: string;
+    key4: string;
+    key5: string;
+    key6: string;
+    key7: string;
+
+
+  }
+
+  const sendDataToDjango = async (data: MyData): Promise<void> => {
+    const url = 'http://localhost:8000/api/signin';
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // You might need additional headers depending on your Django setup
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Handle the successful response from Django
+      console.log('Data sent successfully');
+    } catch (error) {
+      console.error('Error sending data:', error);
+      // Handle errors, maybe display an error message to the user
+    }
+  };
+
+  // Example usage:
+  
+  
   const handleSignIn = (e: FormEvent) => {
     e.preventDefault();
     // Add your sign-in logic here
@@ -23,6 +65,18 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     console.log('Address:', address);
     console.log('Gender:', gender);
     console.log('Date of Birth:', dateOfBirth);
+    
+    const myData: MyData = {
+      key1: firstName,
+      key2: lastName,
+      key3: email,
+      key4: phoneNumber,
+      key5: address,
+      key6: gender,
+      key7: dateOfBirth,
+      
+    };
+    sendDataToDjango(myData);
     // Reset the form fields after submission
     setFirstName('');
     setLastName('');
