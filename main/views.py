@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from .models import *
 
 # Create your views here.
 
@@ -19,6 +21,8 @@ def signup(request):
                             'data2': "234"})
     elif(request.method == "POST"):
         data = json.loads(request.body)
+        user = signinData(request , data)
+        # login(request, user)
             
         print('Received data:', data)
 
@@ -38,7 +42,25 @@ def login(request):
             
         return JsonResponse({'status': 'success'})
     
-def singinData():
-    # user = User.objects.create_user(username=username, password=password , first_name = first_name, last_name = last_name, email= email )
-    pass
+def signinData(request, data):
+    if data:
+        UserName = data["key1"] 
+        Password = data["key2"] 
+        firstName = data["key3"] 
+        lastName = data["key4"] 
+        email = data["key5"] 
+        phoneNumber = data["key6"] 
+        address = data["key7"] 
+        gender = data["key8"] 
+        dateOfBirth = data["key9"]
+        
+        user = User.objects.create_user(username=UserName, password=Password , first_name = firstName, last_name = lastName, email= email )
+        if user is not None:
+            user.save()
+            Userdata = UserData(id = user, phoneNumber = phoneNumber ,address = address, gender = gender, dateOfBirth = dateOfBirth)
+            Userdata.save()
+        
+        # us = authenticate(request, username= UserName, password=Password)
+        # return us
+            
     

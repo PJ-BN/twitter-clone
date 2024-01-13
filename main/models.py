@@ -11,12 +11,7 @@ class UserData(models.Model):
     dateOfBirth = models.CharField(max_length = 15)
     
 
-    # class Meta:
-    #     verbose_name = _("")
-    #     verbose_name_plural = _("s")
 
-    def __str__(self):
-        return self.name
 
     
 

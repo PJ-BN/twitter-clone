@@ -9,6 +9,7 @@ interface SignInPageProps {}
 
 const SignInPage: React.FC<SignInPageProps> = () => {
   const [UserName, setUserName] = useState('');
+  const [Password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,6 +29,7 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     key6: string;
     key7: string;
     key8: string;
+    key9: string;
 
 
 
@@ -56,13 +58,14 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     // Defining signin data to interface 
     const myData: MyData = {
       key1: UserName,
-      key2: firstName,
-      key3: lastName,
-      key4: email,
-      key5: phoneNumber,
-      key6: address,
-      key7: gender,
-      key8: dateOfBirth,
+      key2: Password,
+      key3: firstName,
+      key4: lastName,
+      key5: email,
+      key6: phoneNumber,
+      key7: address,
+      key8: gender,
+      key9: dateOfBirth,
       
     };
     sendDataToDjango(myData);
@@ -70,6 +73,7 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     
     // Reset the form fields after submission
     setUserName('');
+    setPassword('');
     setFirstName('');
     setLastName('');
     setEmail('');
@@ -89,6 +93,15 @@ const SignInPage: React.FC<SignInPageProps> = () => {
             type="text"
             value={UserName}
             onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={Password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
