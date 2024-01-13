@@ -1,5 +1,7 @@
 // SignInPage.tsx
-import React, {  useState, FormEvent } from 'react';
+import React, { useEffect , useState, FormEvent } from 'react';
+import axios from 'axios';
+
 
 import './SignInPage.css';
 
@@ -26,31 +28,47 @@ const SignInPage: React.FC<SignInPageProps> = () => {
 
 
   }
+  
 
-  const sendDataToDjango = async (data: MyData): Promise<void> => {
-    const url = 'http://localhost:8000/api/signin';
+  // const sendDataToDjango = async (data: MyData): Promise<void> => {
+  //   const url = 'http://localhost:8000/api/test';
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // You might need additional headers depending on your Django setup
-        },
-        body: JSON.stringify(data),
-      });
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // You might need additional headers depending on your Django setup
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
 
-      // Handle the successful response from Django
-      console.log('Data sent successfully');
-    } catch (error) {
-      console.error('Error sending data:', error);
-      // Handle errors, maybe display an error message to the user
-    }
-  };
+  //     // Handle the successful response from Django
+  //     console.log('Data sent successfully');
+  //   } catch (error) {
+  //     console.error('Error sending data:', error);
+  //     // Handle errors, maybe display an error message to the user
+  //   }
+  // };
+
+    const [data, setData] = useState<any[]>([]);
+  
+    useEffect(() => {
+      axios.get('/api/test')
+      .then(response =>{ setData(response.data)})
+        
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }, []);
+
+  console.log(data)
+
+  
 
   // Example usage:
   
@@ -76,7 +94,8 @@ const SignInPage: React.FC<SignInPageProps> = () => {
       key7: dateOfBirth,
       
     };
-    sendDataToDjango(myData);
+    // SendDataToDjango();
+
     // Reset the form fields after submission
     setFirstName('');
     setLastName('');
