@@ -12,26 +12,17 @@ def home(request):
 
 
 # @api_view(['GET'])
-def testapi(request):
-    return JsonResponse({'data': " 1234", 
-                         'data2': "234"})
+@csrf_exempt
+def signup(request):
+    if(request.method =="GET"):
+        return JsonResponse({'data': " 1234", 
+                            'data2': "234"})
+    elif(request.method == "POST"):
+        data = json.loads(request.body)
+            
+        print('Received data:', data)
+
+            
+        return JsonResponse({'status': 'success'})
     
 
-# Your Django views.py
-
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-
-@csrf_exempt
-def handle_data(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            # Handle the data as needed
-            print('Received data:', data)
-            return JsonResponse({'status': 'success'})
-        except json.JSONDecodeError:
-            return JsonResponse({'status': 'error', 'message': 'Invalid JSON'})
-    else:
-        return JsonResponse({'status': 'error', 'message': 'Unsupported method'})
