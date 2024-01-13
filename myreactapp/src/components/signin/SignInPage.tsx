@@ -8,6 +8,7 @@ import './SignInPage.css';
 interface SignInPageProps {}
 
 const SignInPage: React.FC<SignInPageProps> = () => {
+  const [UserName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +27,8 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     key5: string;
     key6: string;
     key7: string;
+    key8: string;
+
 
 
   }
@@ -52,19 +55,21 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     
     // Defining signin data to interface 
     const myData: MyData = {
-      key1: firstName,
-      key2: lastName,
-      key3: email,
-      key4: phoneNumber,
-      key5: address,
-      key6: gender,
-      key7: dateOfBirth,
+      key1: UserName,
+      key2: firstName,
+      key3: lastName,
+      key4: email,
+      key5: phoneNumber,
+      key6: address,
+      key7: gender,
+      key8: dateOfBirth,
       
     };
     sendDataToDjango(myData);
     
     
     // Reset the form fields after submission
+    setUserName('');
     setFirstName('');
     setLastName('');
     setEmail('');
@@ -78,6 +83,15 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     <div className="signin-container">
       <h2>Sign In</h2>
       <form onSubmit={HandleSignIn} className="signin-form">
+      <label>
+          Username:
+          <input
+            type="text"
+            value={UserName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </label>
         <label>
           First Name:
           <input

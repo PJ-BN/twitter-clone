@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -38,4 +38,7 @@ def login(request):
             
         return JsonResponse({'status': 'success'})
     
-
+def singinData():
+    # user = User.objects.create_user(username=username, password=password , first_name = first_name, last_name = last_name, email= email )
+    pass
+    
