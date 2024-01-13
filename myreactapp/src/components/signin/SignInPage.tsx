@@ -16,7 +16,8 @@ const SignInPage: React.FC<SignInPageProps> = () => {
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-    
+  
+  //  Interface is used here to define the type of data that are to the server
   interface MyData {
     key1: string;
     key2: string;
@@ -28,6 +29,9 @@ const SignInPage: React.FC<SignInPageProps> = () => {
 
 
   }
+
+  // Sending data to the server using axios
+
   const sendDataToDjango = async (data: MyData): Promise<void> => {
     const url = 'http://localhost:8000/api/signin';  // Replace with your Django endpoint
   
@@ -40,20 +44,13 @@ const SignInPage: React.FC<SignInPageProps> = () => {
   };
   
   
-  // Example usage:
   
-  
+  // Waiting till the POST request is performed
+
   const HandleSignIn = (e: FormEvent) => {
     e.preventDefault();
-    // Add your sign-in logic here
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Phone Number:', phoneNumber);
-    console.log('Address:', address);
-    console.log('Gender:', gender);
-    console.log('Date of Birth:', dateOfBirth);
     
+    // Defining signin data to interface 
     const myData: MyData = {
       key1: firstName,
       key2: lastName,

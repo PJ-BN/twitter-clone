@@ -25,4 +25,17 @@ def signup(request):
             
         return JsonResponse({'status': 'success'})
     
+@csrf_exempt
+def login(request):
+    if(request.method =="GET"):
+        return JsonResponse({'data': " 1234", 
+                            'data2': "234"})
+    elif(request.method == "POST"):
+        data = json.loads(request.body)
+            
+        print('Received data:', data)
+
+            
+        return JsonResponse({'status': 'success'})
+    
 
