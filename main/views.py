@@ -16,31 +16,39 @@ def home(request):
 # @api_view(['GET'])
 @csrf_exempt
 def signup(request):
-    if(request.method =="GET"):
-        return JsonResponse({'data': " 1234", 
-                            'data2': "234"})
-    elif(request.method == "POST"):
+    
+    if(request.method == "POST"):
         data = json.loads(request.body)
-        user = signinData(request , data)
-        # login(request, user)
+        signinData(request , data)
             
         print('Received data:', data)
 
             
         return JsonResponse({'status': 'success'})
     
+    return JsonResponse({'status': 'failed'})
+    
+    
 @csrf_exempt
-def login(request):
-    if(request.method =="GET"):
-        return JsonResponse({'data': " 1234", 
-                            'data2': "234"})
-    elif(request.method == "POST"):
+def loginUser(request):
+    
+    if(request.method == "POST"):
         data = json.loads(request.body)
             
         print('Received data:', data)
-
-            
-        return JsonResponse({'status': 'success'})
+        UserName = data['key1']
+        Password = data['key2']
+        
+        user = authenticate(request, username= UserName, password=Password)
+        print(user)
+        if user is not None:
+            login(request , user)
+            print(" done")
+                    
+            return JsonResponse({'status': 'success'})
+    
+    return JsonResponse({'status': 'failed'})
+    
     
 def signinData(request, data):
     if data:
@@ -60,7 +68,8 @@ def signinData(request, data):
             Userdata = UserData(id = user, phoneNumber = phoneNumber ,address = address, gender = gender, dateOfBirth = dateOfBirth)
             Userdata.save()
         
-        # us = authenticate(request, username= UserName, password=Password)
-        # return us
+        us = authenticate(request, username= UserName, password=Password)
+        login(request , us)
+
             
     
