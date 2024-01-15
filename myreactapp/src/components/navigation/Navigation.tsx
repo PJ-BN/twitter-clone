@@ -1,6 +1,6 @@
 // Navigation.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 
 import LandingPage from '../landing/LandingPage';
 import SignUpPage from '../signin/SignInPage';
@@ -11,7 +11,6 @@ import './Navigation.css'; // Import the CSS file
 const Navigation: React.FC = () => {
     
     return (
-      <Router>
 
         <div>
           <header>
@@ -51,7 +50,6 @@ const Navigation: React.FC = () => {
             </ Routes>
 
       </div>
-      </Router>
     );
   };
   
