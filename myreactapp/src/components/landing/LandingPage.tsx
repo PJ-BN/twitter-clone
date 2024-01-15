@@ -1,28 +1,17 @@
 // LandingPage.tsx
-import React, { useState } from 'react';
-import SignUpPage from '../signin/SignInPage'; // Import your SignUpPage component
-import LoginPage from '../login/LoginPage'; // Import your LoginPage component
+import React from 'react';
 import './LandingPage.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 
 interface LandingPageProps {}
 
 const LandingPage: React.FC<LandingPageProps> = () => {
-  const [page, setPage] = useState<'landing' | 'signup' | 'login'>('landing');
 
-  const renderContent = () => {
-    // switch (page) {
-    //   case 'signup':
-    //     return <SignUpPage />;
-    //   case 'login':
-    //     return <LoginPage />;
-    //   default:
+ 
         return (
 
-          <Router>
 
-            <div>
-              {/* Existing landing page content */}
+            <div className="landing-container">
               <header className="landing-header">
                 <img
                   className="logo"
@@ -60,21 +49,11 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                 />
               </section>
 
-                <Routes>
-                  <Route path="/signup" element = {<SignUpPage />}>
-                    
-                  </Route>
-                  <Route path="/login"  element ={<LoginPage />}>
-                    
-                  </Route>
-                </ Routes>
+                
             </div>
-          </Router>
           );
-      // }
-  };
+  
 
-  return <div className="landing-container">{renderContent()}</div>;
 };
 
 export default LandingPage;
