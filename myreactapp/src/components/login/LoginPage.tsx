@@ -1,13 +1,27 @@
 import React, { useState, FormEvent } from 'react';
 import './login.css'; // Import the CSS file
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 
-interface LoginPageProps {}
+// interface LoginPageProps {}
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+interface ChildProps {
+  onDataToParent: (data: string) => void;
+}
+
+const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
   // State to manage the form inputs
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [user, setUser] = useState('')
+  const navigate = useNavigate();
+
+  const sendDataToParent = (data: string) => {
+    // Call the callback function provided by the parent
+    onDataToParent(data);
+    navigate('/');
+  };
 
 
   //  Interface is used here to define the type of data that are to the server
@@ -26,6 +40,16 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     try {
       const response = await axios.post(url, data);
       console.log('Data sent successfully:', response.data);
+      if(response.data['status']==="success")
+      {
+        sendDataToParent(response.data)
+        
+        
+      }else{
+
+        setUser("Invalid Username or Password")
+      }
+      
     } catch (error) {
       console.error('Error sending data:', error);
     }
@@ -78,6 +102,9 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           Login
         </button>
       </form>
+      <div>
+        {user}
+      </div>
     </div>
   );
 };

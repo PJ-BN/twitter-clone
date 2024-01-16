@@ -1,13 +1,16 @@
 // SignInPage.tsx
 import React, { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
 import './SignInPage.css';
 
-interface SignInPageProps {}
+interface ChildProps {
+  onDataToParent: (data: string) => void;
+}
 
-const SignInPage: React.FC<SignInPageProps> = () => {
+const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
   const [UserName, setUserName] = useState('');
   const [Password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -17,6 +20,9 @@ const SignInPage: React.FC<SignInPageProps> = () => {
   const [address, setAddress] = useState('');
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+
+  const navigate = useNavigate();
+
 
   
   //  Interface is used here to define the type of data that are to the server
@@ -35,6 +41,12 @@ const SignInPage: React.FC<SignInPageProps> = () => {
 
   }
 
+  const sendDataToParent = (data: string) => {
+    // Call the callback function provided by the parent
+    onDataToParent(data);
+    navigate('/');
+  };
+
   // Sending data to the server using axios
 
   const sendDataToDjango = async (data: MyData): Promise<void> => {
@@ -43,6 +55,8 @@ const SignInPage: React.FC<SignInPageProps> = () => {
     try {
       const response = await axios.post(url, data);
       console.log('Data sent successfully:', response.data);
+      sendDataToParent(response.data)
+
     } catch (error) {
       console.error('Error sending data:', error);
     }
