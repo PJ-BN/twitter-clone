@@ -8,7 +8,7 @@ import LoginPage from '../login/LoginPage';
 
 
 interface ChildProps {
-onDataToParent: (data: string) => void;
+onDataToParent: (data: string, username: string) => void;
 }
 
 const Navigation1: React.FC<ChildProps> = ({onDataToParent}) => {
@@ -17,17 +17,17 @@ const Navigation1: React.FC<ChildProps> = ({onDataToParent}) => {
     //     dataFromChild: null,
     //   });
     
-      const handleDataFromChild = (data: string) => {
+      const handleDataFromChild = (data: string, username:string) => {
         console.log(`Data received in ParentComponent: ${data}`);
         // setLogindetail({ dataFromChild: data });
-        sendDataToParent(data)
+        sendDataToParent(data, username)
 
       };
     // console.log(logindetail)
 
-    const sendDataToParent = (data: string) => {
+    const sendDataToParent = (data: string, username:string) => {
         // Call the callback function provided by the parent
-        onDataToParent(data);
+        onDataToParent(data, username);
       };
 
 

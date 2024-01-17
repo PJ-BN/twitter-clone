@@ -7,7 +7,8 @@ import axios from 'axios';
 import './SignInPage.css';
 
 interface ChildProps {
-  onDataToParent: (data: string) => void;
+  onDataToParent: (data: string, username:string) => void;
+
 }
 
 const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
@@ -41,9 +42,9 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
 
   }
 
-  const sendDataToParent = (data: string) => {
+  const sendDataToParent = (data: string, username:string) => {
     // Call the callback function provided by the parent
-    onDataToParent(data);
+    onDataToParent(data, username);
     navigate('/');
   };
 
@@ -55,7 +56,7 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
     try {
       const response = await axios.post(url, data);
       console.log('Data sent successfully:', response.data);
-      sendDataToParent(response.data)
+      sendDataToParent(response.data, data.key1)
 
     } catch (error) {
       console.error('Error sending data:', error);

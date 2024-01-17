@@ -2,11 +2,12 @@ import React, { useState, FormEvent } from 'react';
 import './login.css'; // Import the CSS file
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
+import Cookies from 'js-cookie';
 
 // interface LoginPageProps {}
 
 interface ChildProps {
-  onDataToParent: (data: string) => void;
+  onDataToParent: (data: string, username:string) => void;
 }
 
 const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
@@ -17,10 +18,15 @@ const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
   const [user, setUser] = useState('')
   const navigate = useNavigate();
 
-  const sendDataToParent = (data: string) => {
+  const sendDataToParent = (data: string, username :string) => {
     // Call the callback function provided by the parent
-    onDataToParent(data);
+    onDataToParent(data, username);
     navigate('/');
+  };
+
+  const addCookie = (key:string , value:string) => {
+    // Set a cookie with the key-value pair and optional attributes
+    Cookies.set(key, value, { expires: 1, path: '/' });
   };
 
 
@@ -42,7 +48,8 @@ const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
       console.log('Data sent successfully:', response.data);
       if(response.data['status']==="success")
       {
-        sendDataToParent(response.data)
+        addCookie(data.key1, data.key2)
+        sendDataToParent(response.data, data.key1)
         
         
       }else{
