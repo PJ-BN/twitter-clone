@@ -1,4 +1,5 @@
 import React  from 'react';
+import Navbar from '../navbar-logged/Navbar';
 // import { Route, Routes, Link } from 'react-router-dom';
 interface ChildProps {
     
@@ -13,7 +14,7 @@ const Navigation2: React.FC<ChildProps> = () => {
     return(
         <div>
 
-            <h1> Hello World</h1>
+            < Navbar />
         </div>
     )
 }

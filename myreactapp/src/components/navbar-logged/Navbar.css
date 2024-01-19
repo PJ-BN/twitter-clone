@@ -1,0 +1,76 @@
+/* Navbar.css */
+
+.navbar {
+    background-color: black;
+    padding: 10px;
+    padding-left: 8%;
+    height: 100vh;
+    width: 13%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: rgb(158, 158, 255);
+    border-right: 1px solid white;
+    /* Add a vertical border */
+}
+
+
+/* ... rest of the styles remain unchanged ... */
+
+.custom-icon {
+    padding-left: 4px;
+    padding-right: 10px;
+    /* margin-right: 2rem; */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    margin-bottom: 10px;
+    padding-bottom: 12px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+i {
+    margin-right: 8px;
+}
+
+.separator {
+    width: 100%;
+    border-top: 1px solid white;
+    margin: 10px 0;
+}
+
+.post-button,
+.logout-button {
+    margin-top: auto;
+    padding: 10px;
+}
+
+button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 999px;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
