@@ -1,0 +1,72 @@
+/* NewNavbar.css */
+
+.central-home {
+    background-color: black;
+    /* border:  */
+    border-left: 1px solid rgb(102, 94, 94);
+    border-right: 1px solid rgb(102, 94, 94);
+    /* height: 100rem; */
+    width: 99.%;
+    /* margin-right: 50%; */
+}
+
+.post {
+    color: white;
+    bottom: 0;
+}
+
+.new-navbar {
+    background-color: black;
+    display: grid;
+    grid-template-columns: 46% 46% 8%;
+    position: fixed;
+    height: 4rem;
+    width: 39.9%;
+    top: 0;
+}
+
+.for-you {
+    /* width: 47%; */
+    text-align: center;
+}
+
+.following {
+    /* width: 47%; */
+}
+
+.nav-button {
+    flex-grow: 1;
+    padding: 0px;
+    /* padding-right: 10px; */
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+.nav-button:hover {
+    background-color: #333;
+    border-radius: 5px;
+    /* Hover color */
+}
+
+.settings-button {
+    border-radius: 50%;
+    background-color: black;
+    /* padding-right: 1%; */
+    /* margin-right: 1px solid; */
+}
+
+.settings-button:hover {
+    background-color: #333;
+    /* border-radius: 100%; */
+    /* Hover color */
+}
+
+.line {
+    border: 10px;
+    height: 1px;
+    /* Adjust the thickness of the line */
+    background-color: rgb(102, 94, 94);
+    width: 100%;
+}
