@@ -15,6 +15,8 @@ const Navigation2: React.FC<ChildProps> = () => {
         <div>
 
             < Navbar />
+            <h1>helloworld</h1>
+            
         </div>
     )
 }

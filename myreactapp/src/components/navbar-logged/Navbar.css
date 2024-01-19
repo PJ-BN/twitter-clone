@@ -11,6 +11,14 @@
     align-items: flex-start;
     color: rgb(158, 158, 255);
     border-right: 1px solid white;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    /* Adjust to fit your layout */
+    z-index: 1000;
+    /* Adjust the z-index as needed */
+    /* overflow-y: auto; */
+    overflow: hidden;
     /* Add a vertical border */
 }
 
@@ -43,6 +51,16 @@ a {
     color: white;
     display: flex;
     align-items: center;
+    padding: 6px;
+    border-radius: 20px;
+    /* Oval shape */
+}
+
+a:hover {
+    background-color: #333;
+    /* Gray color popping */
+    transform: scale(1.1);
+    /* Increase size on hover */
 }
 
 i {
