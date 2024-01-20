@@ -32,7 +32,7 @@ button:hover {
 
 .home {
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 25% 45% 30%;
     /* gap: 20px; */
 }
 

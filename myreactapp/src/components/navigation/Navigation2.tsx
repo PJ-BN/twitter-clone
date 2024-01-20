@@ -20,22 +20,16 @@ const Navigation2: React.FC<ChildProps> = () => {
             <div className='home'>
                 <div className = "navbar-component">
 
-                < Navbar  />
+                    < Navbar  />
                 </div >
                 <div className='Central-component'>
                     <CentralNavbar />
                 </div>
                 <div>
 
-                {/* {Array.from({ length: 30 }).map((_, index) => (
-            <div key={index}>Item {index + 1}
-                <h1>helloworld</h1>
+                
+                    <SearchNavbar />
                 </div>
-        ))} */}
-        <div>
-            <SearchNavbar />
-        </div>
-            </div>
                 
             </div>
         </div>

@@ -9,7 +9,7 @@ import './Navbar.css';
 
 const Navbar: React.FC = () => {
   return (
-    <div>
+    <div  className='main-navbar'>
 
       <div className="navbar">
         <div className="logo">
@@ -78,21 +78,24 @@ const Navbar: React.FC = () => {
               More
             </Link>
           </li>
+          <li>
+
+            <div className="post-button">
+              <button>
+                <FontAwesomeIcon icon={faPlus} className="custom-icon"/>
+                Post
+              </button>
+            </div>
+          </li>
+          <div className="logout-button">
+            <button>
+              <FontAwesomeIcon icon={faEllipsisH} className="custom-icon"/>
+              Logout
+            </button>
+          </div>
         </ul>
 
-        <div className="post-button">
-          <button>
-            <FontAwesomeIcon icon={faPlus} className="custom-icon"/>
-            Post
-          </button>
-        </div>
 
-        <div className="logout-button">
-          <button>
-            <FontAwesomeIcon icon={faEllipsisH} className="custom-icon"/>
-            Logout
-          </button>
-        </div>
       </div>
     </div>
   );
