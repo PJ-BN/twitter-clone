@@ -1,6 +1,7 @@
 // Navbar.tsx
 
 import React from 'react';
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCompass, faBell, faEnvelope, faList, faBookmark, faUsers, faCrown, faUser, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +9,13 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
+
+  const logoutButton = () =>{
+    Cookies.remove('Prajwal12');
+    // navigate('/');
+    window.location.reload();
+  }
+
   return (
     <div  className='main-navbar'>
 
@@ -88,7 +96,7 @@ const Navbar: React.FC = () => {
             </div>
           </li>
           <div className="logout-button">
-            <button>
+            <button onClick={logoutButton}>
               <FontAwesomeIcon icon={faEllipsisH} className="custom-icon"/>
               Logout
             </button>

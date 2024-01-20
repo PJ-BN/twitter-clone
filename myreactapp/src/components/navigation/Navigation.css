@@ -13,22 +13,19 @@ nav {
     justify-content: space-around;
 }
 
-
-/* button {
-    background-color: #2c3e50;
+button {
+    /* background-color: #041220; */
     color: #ecf0f1;
     padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     cursor: pointer;
     transition: background-color 0.3s ease;
-} */
+}
 
-
-/* 
 button:hover {
     background-color: #34495e;
-} */
+}
 
 .home {
     display: grid;
@@ -36,10 +33,9 @@ button:hover {
     /* gap: 20px; */
 }
 
-
-/* .Central-component {
+.Central-component {
     top: 0;
     bottom: 0;
     width: 100%;
     margin: 0;
-} */
+}
