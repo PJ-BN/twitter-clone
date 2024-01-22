@@ -94,9 +94,9 @@ const CentralNavbar = () => {
         </div>
       </div>
       <hr />
-      <div>
+      <div className="tweet-secti">
         {tweets.map((tweet) => (
-          <div key={tweet.id}>
+          <div key={tweet.id} className="tweet-section">
             <div className="post post-tweet">
               <div className="profile-pic">
                 <img
