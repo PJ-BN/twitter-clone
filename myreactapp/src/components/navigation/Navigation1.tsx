@@ -5,6 +5,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import LandingPage from '../landing/LandingPage';
 import SignUpPage from '../signin/SignInPage';
 import LoginPage from '../login/LoginPage';
+// import Profile from '../home/profile';
 
 
 interface ChildProps {
@@ -68,6 +69,9 @@ const Navigation1: React.FC<ChildProps> = ({onDataToParent}) => {
               <Route path="/login"  element ={<LoginPage onDataToParent={handleDataFromChild}/>}>
                
               </Route>
+
+
+
             </ Routes>
 
       </div>

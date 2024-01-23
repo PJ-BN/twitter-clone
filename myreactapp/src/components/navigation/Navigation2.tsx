@@ -2,6 +2,8 @@ import React  from 'react';
 import Navbar from '../navbar-logged/Navbar';
 import CentralNavbar from '../home/home';
 import SearchNavbar from '../home/search_side';
+import { Route, Routes } from 'react-router-dom';
+import Profile from '../home/profile';
 // import { Route, Routes, Link } from 'react-router-dom';
 interface ChildProps {
     
@@ -32,6 +34,10 @@ const Navigation2: React.FC<ChildProps> = () => {
                 </div>
                 
             </div>
+            <Routes >
+
+                <Route path = '/profile' element = {< Profile />}></Route>
+            </Routes>
         </div>
     )
 }

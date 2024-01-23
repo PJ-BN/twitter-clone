@@ -49,6 +49,19 @@ def loginUser(request):
     
     return JsonResponse({'status': 'failed'})
     
+
+@csrf_exempt
+def profile(request):
+    user = request.user.username
+    print(user)
+    if user:
+        userdata = User.objects.get(username = user)
+        userdata1 = UserData.objects.get(id = userdata.id)
+        print(userdata1.gender)
+        return JsonResponse({'user': userdata1})
+    print("error")
+    return JsonResponse({'user': user})
+    
     
 def signinData(request, data):
     if data:
