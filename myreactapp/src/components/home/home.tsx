@@ -1,5 +1,7 @@
 // NewNavbar.jsx
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
 import "./home.css"; // Import the CSS file for styling
 
@@ -112,6 +114,33 @@ const CentralNavbar = () => {
                 </div>
                 <div className="tweet-value">
                   <p>{tweet.content}</p>
+                </div>
+                <br />
+                <div className="below-section">
+                  <div className="icon-container">
+                    <button className="icon-button">
+                      <FontAwesomeIcon icon={faComment} className="icon" />
+                    </button>
+                    <button className="icon-button">
+                      <FontAwesomeIcon icon={faRetweet} className="icon" />
+                    </button>
+                    <button className="icon-button">
+                      <FontAwesomeIcon icon={faHeart} className="icon" />
+                    </button>
+                    <button className="icon-button">
+                      <FontAwesomeIcon icon={faEye} className="icon" />
+                    </button>
+                    <div>
+                      <button className="icon-button">
+                        <FontAwesomeIcon icon={faBookmark} className="icon" />
+                      </button>
+                      <button className="icon-button">
+                        <FontAwesomeIcon icon={faShare} className="icon" />
+                      </button>
+
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
