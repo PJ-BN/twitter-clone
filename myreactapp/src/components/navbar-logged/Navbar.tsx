@@ -2,17 +2,18 @@
 
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCompass, faBell, faEnvelope, faList, faBookmark, faUsers, faCrown, faUser, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
-
+  const navigate = useNavigate();
+  
   const logoutButton = () =>{
     Cookies.remove('username');
-    // navigate('/');
+    navigate('/');
     window.location.reload();
   }
 
