@@ -2,12 +2,11 @@
 
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCompass, faBell, faEnvelope, faList, faBookmark, faUsers, faCrown, faUser, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css';
-import Profile from '../home/profile';
 
 const Navbar: React.FC = () => {
 

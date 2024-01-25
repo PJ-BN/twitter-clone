@@ -25,7 +25,12 @@ const Navigation2: React.FC<ChildProps> = () => {
                     < Navbar  />
                 </div >
                 <div className='Central-component'>
-                    <CentralNavbar />
+                    
+                    <Routes >
+                        <Route path = '/' element = {<CentralNavbar />}></Route>
+
+                        <Route path = '/profile' element = {< Profile />}></Route>
+                    </Routes>
                 </div>
                 <div>
 
@@ -34,10 +39,6 @@ const Navigation2: React.FC<ChildProps> = () => {
                 </div>
                 
             </div>
-            <Routes >
-
-                <Route path = '/profile' element = {< Profile />}></Route>
-            </Routes>
         </div>
     )
 }
