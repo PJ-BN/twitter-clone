@@ -36,14 +36,16 @@ const Navigation: React.FC = () => {
 
   const getCookie= () =>{
     let cookie = Cookies.get();
+    console.log(cookie)
     return Object.keys(cookie)
   } 
   
   const cookieData = getCookie()
+  console.log(cookieData[0])
 
-  if(Object.values(logindetail)[1] === null && cookieData.length > 1 ){
+  if(Object.values(logindetail)[1] === null && cookieData[0]=== "username" ){
     console.log("true")
-    setLogindetail({ dataFromChild:"success", username: cookieData[1] });
+    setLogindetail({ dataFromChild:"success", username: cookieData[0] });
   }
   // if(cookieData.length > 1 ){
 

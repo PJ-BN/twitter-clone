@@ -48,7 +48,7 @@ const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
       console.log('Data sent successfully:', response.data);
       if(response.data['status']==="success")
       {
-        addCookie(data.key1, data.key2)
+        addCookie("username", data.key1)
         sendDataToParent(response.data, data.key1)
         
         

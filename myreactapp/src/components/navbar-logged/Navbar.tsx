@@ -12,7 +12,7 @@ import Profile from '../home/profile';
 const Navbar: React.FC = () => {
 
   const logoutButton = () =>{
-    Cookies.remove('Prajwal12');
+    Cookies.remove('username');
     // navigate('/');
     window.location.reload();
   }
