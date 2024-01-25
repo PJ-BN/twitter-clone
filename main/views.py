@@ -53,7 +53,7 @@ def loginUser(request):
 
 @csrf_exempt
 def profile(request):
-    # user = 'Prajwal12'
+    user = 'Prajwal12'
     print(user)
     if user:
         # userdata = User.objects.get(username = user)
