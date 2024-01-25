@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import *
+from .serializers import *
 
 # Create your views here.
 
@@ -52,13 +53,14 @@ def loginUser(request):
 
 @csrf_exempt
 def profile(request):
-    user = request.user.username
+    user = 'Prajwal12'
     print(user)
     if user:
-        userdata = User.objects.get(username = user)
-        userdata1 = UserData.objects.get(id = userdata.id)
-        print(userdata1.gender)
-        return JsonResponse({'user': userdata1})
+        # userdata = User.objects.get(username = user)
+        userdata = UserData.objects.get(username= user)
+        print(userdata)
+        serializerUser = UserDataSerializer(userdata)
+        return JsonResponse(serializerUser.data, safe=False)
     print("error")
     return JsonResponse({'user': user})
     
@@ -78,7 +80,7 @@ def signinData(request, data):
         user = User.objects.create_user(username=UserName, password=Password , first_name = firstName, last_name = lastName, email= email )
         if user is not None:
             user.save()
-            Userdata = UserData(id = user, phoneNumber = phoneNumber ,address = address, gender = gender, dateOfBirth = dateOfBirth)
+            Userdata = UserData(id = user,username = UserName, firstname = firstName, lastname = lastName, email = email, phoneNumber = phoneNumber ,address = address, gender = gender, dateOfBirth = dateOfBirth)
             Userdata.save()
         
         us = authenticate(request, username= UserName, password=Password)
