@@ -54,7 +54,12 @@ def loginUser(request):
 @csrf_exempt
 def profile(request):
     user = 'Prajwal12'
-    print(user)
+    try:
+        data = json.loads(request.body)
+        print(user)
+    except:
+        print(" no data found")
+    print(data)
     if user:
         # userdata = User.objects.get(username = user)
         userdata = UserData.objects.get(username= user)
