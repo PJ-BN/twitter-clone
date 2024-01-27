@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import *
 from .serializers import *
+from django.conf import settings
+from PIL import Image
 
 # Create your views here.
 
@@ -42,6 +44,7 @@ def loginUser(request):
         
         user = authenticate(request, username= UserName, password=Password)
         print(user)
+        
         if user is not None:
             login(request , user)
             print(" done")
@@ -53,13 +56,13 @@ def loginUser(request):
 
 @csrf_exempt
 def profile(request):
-    user = 'Prajwal12'
+    img = settings.MEDIA_ROOT + settings.MEDIA_URL + 'profile.jpg'
     try:
         data = json.loads(request.body)
+        user = data['key1']
         print(user)
     except:
         print(" no data found")
-    print(data)
     if user:
         # userdata = User.objects.get(username = user)
         userdata = UserData.objects.get(username= user)
