@@ -1,0 +1,43 @@
+/* ProfilePage.css */
+
+h1{
+    margin-bottom: 0px;
+}
+
+.profile-container {
+    background-color: black;
+    /* padding-top: 20px; */
+    color: antiquewhite;
+    border-left: 1px solid rgb(102, 94, 94);
+    border-right: 1px solid rgb(102, 94, 94);
+    height: 100vh;
+}
+
+.profile-header {
+  text-align: center;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.bio {
+  color: gray;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
