@@ -167,8 +167,7 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
         </label>
         <label>
           Gender:
-          <div>
-            <label>
+          <div className='gender'>
               <input
                 type="radio"
                 value="male"
@@ -176,8 +175,6 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
                 onChange={() => setGender('male')}
               />
               Male
-            </label>
-            <label>
               <input
                 type="radio"
                 value="female"
@@ -185,8 +182,6 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
                 onChange={() => setGender('female')}
               />
               Female
-            </label>
-            <label>
               <input
                 type="radio"
                 value="other"
@@ -194,7 +189,6 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
                 onChange={() => setGender('other')}
               />
               Other
-            </label>
           </div>
         </label>
         <label>

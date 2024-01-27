@@ -67,6 +67,10 @@ label.radio-label {
     font-size: 14px;
 }
 
-input[type="radio"] {
+.gender{
     margin-right: 5px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
 }
+
+

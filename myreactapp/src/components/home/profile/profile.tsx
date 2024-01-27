@@ -21,6 +21,7 @@ const Profile: React.FC = () => {
 
     // creating a state to store data which i get form server
     const [data, setData] = useState<any[]>([]);
+    console.log(senddata)
     
     
     // sending post request to server
