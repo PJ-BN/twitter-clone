@@ -4,6 +4,10 @@ h1{
     margin-bottom: 0px;
 }
 
+hr{
+  margin: 0px;
+}
+
 .profile-container {
     background-color: black;
     /* padding-top: 20px; */
@@ -55,9 +59,13 @@ h1{
     display: inline;
     border-radius: 0%;
     align-items: center;
+    font-size: 17px;
 
 }
 .nav-link:hover{
     background-color: #2e2d2d;
-    border-bottom: 4px solid rgb(25, 25, 131);
+    
+    font-size: 17px;
+    transform: 0;
+
 }

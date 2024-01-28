@@ -110,6 +110,7 @@ body::-webkit-scrollbar-thumb {
     display: grid;
     grid-template-columns: 1fr 10fr;
     margin-right: 10%;
+    padding-bottom: 10px;
 }
 
 .profile-pic {
@@ -127,6 +128,10 @@ body::-webkit-scrollbar-thumb {
     outline: none;
     color: white;
     resize: none;
+}
+
+.tweet-section {
+    padding-top: 10px;
 }
 
 .tweet-div {
