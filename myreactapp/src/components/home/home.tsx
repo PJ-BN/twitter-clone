@@ -5,6 +5,7 @@ import React, { useState } from "react";
 // import { Link } from 'react-router-dom';
 import "./home.css"; // Import the CSS file for styling
 import Tweet from "../tweet";
+import Post from "./post";
 
 interface Tweet {
   id: number;
@@ -27,6 +28,8 @@ const CentralNavbar = () => {
         content: newTweet,
       };
 
+      Post(newTweetObject)
+
       setTweets([...tweets, newTweetObject]);
       setNewTweet("");
     }
@@ -48,7 +51,6 @@ const CentralNavbar = () => {
     console.log("Settings clicked");
     // Add your custom function logic here
   };
-  console.log(tweets)
 
   return (
     <div className="central-home">
@@ -103,7 +105,7 @@ const CentralNavbar = () => {
         {tweets.map((tweet) => (
           
           
-          <Tweet  tweet ={tweet} user = {user}/>
+          <Tweet  key={tweet.id} tweet ={tweet} user = {user}/>
         ))}
       </div>
     </div>

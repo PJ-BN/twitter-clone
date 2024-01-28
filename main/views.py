@@ -96,3 +96,15 @@ def signinData(request, data):
 
             
     
+@csrf_exempt
+def gettweet(request):
+    try:
+        data = json.loads(request.body)
+        print(data)
+    except:
+        print(" no data found")
+    if data:
+        return JsonResponse({"status":"success"})
+    
+    return JsonResponse({"status":"failed"})
+    
