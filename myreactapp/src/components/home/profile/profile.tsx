@@ -1,8 +1,12 @@
 import React, {  useState , useEffect} from "react";
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 import Cookies from "js-cookie";
 
-import './profile.css';
+import './profile.css'
+// import { Routes, Route } from "react-router-dom";
+// import CentralNavbar from "../home";
 
 
 interface User {
@@ -85,7 +89,27 @@ const Profile: React.FC = ()=> {
             <p>Following</p>
           </div>
         </div>
-  
+        <br />
+        {/* <hr /> */}
+        <div className="menu-section">
+
+                <Link to="/" className="nav-link " >
+                Posts
+                </Link>
+                <Link to="/" className="nav-link " >
+                Replies
+                </Link>
+                <Link to="/" className="nav-link ">
+                Highlights
+                </Link>
+                <Link to="/" className="nav-link " >
+                Media
+                </Link>
+                <Link to="/" className="nav-link " >
+                Likes
+                </Link>
+        </div>
+        <hr />
         {/* Additional content for tweets, media, etc. can be added here */}
       </div>
     )
