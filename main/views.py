@@ -10,45 +10,60 @@ from .serializers import *
 from django.conf import settings
 from PIL import Image
 
-# Create your views here.
-
 def home(request):
+    """
+    Renders the home page.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        The rendered home page.
+    """
     return render(request, 'index.html')
 
 
-# @api_view(['GET'])
 @csrf_exempt
 def signup(request):
-    
+    """
+    Handles the signup functionality.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response indicating the status of the signup process.
+    """
     if(request.method == "POST"):
         data = json.loads(request.body)
         signinData(request , data)
-            
         print('Received data:', data)
-
-            
         return JsonResponse({'status': 'success'})
     
     return JsonResponse({'status': 'failed'})
     
-    
+
 @csrf_exempt
 def loginUser(request):
-    
+    """
+    Handles the login functionality.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response indicating the status of the login process.
+    """
     if(request.method == "POST"):
         data = json.loads(request.body)
-            
         print('Received data:', data)
         UserName = data['key1']
         Password = data['key2']
-        
         user = authenticate(request, username= UserName, password=Password)
         print(user)
-        
         if user is not None:
             login(request , user)
             print(" done")
-                    
             return JsonResponse({'status': 'success'})
     
     return JsonResponse({'status': 'failed'})
@@ -56,6 +71,15 @@ def loginUser(request):
 
 @csrf_exempt
 def profile(request):
+    """
+    Retrieves the user profile data.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response containing the user profile data.
+    """
     img = settings.MEDIA_ROOT + settings.MEDIA_URL + 'profile.jpg'
     try:
         data = json.loads(request.body)
@@ -64,7 +88,6 @@ def profile(request):
     except:
         print(" no data found")
     if user:
-        # userdata = User.objects.get(username = user)
         userdata = UserData.objects.get(username= user)
         print(userdata)
         serializerUser = UserDataSerializer(userdata)
@@ -74,6 +97,16 @@ def profile(request):
     
     
 def signinData(request, data):
+    """
+    Handles the signup data.
+
+    Args:
+        request: The HTTP request object.
+        data: The signup data.
+
+    Returns:
+        None
+    """
     if data:
         UserName = data["key1"] 
         Password = data["key2"] 
@@ -98,6 +131,15 @@ def signinData(request, data):
     
 @csrf_exempt
 def gettweet(request):
+    """
+    Retrieves the tweet data.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response indicating the status of the tweet retrieval process.
+    """
     try:
         data = json.loads(request.body)
         print(data)

@@ -7,6 +7,8 @@ import "./home.css"; // Import the CSS file for styling
 import Tweet from "../tweet";
 import Post from "./post";
 
+
+
 interface Tweet {
   id: number;
   content: string;
