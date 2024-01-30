@@ -142,6 +142,10 @@ def gettweet(request):
     """
     try:
         data = json.loads(request.body)
+        username = data['user']
+        user = UserData.objects.get(username = username)
+        tweetdata = TweetData(username = user, tweet = data['content'], date = data['date']) 
+        tweetdata.save()
         print(data)
     except:
         print(" no data found")

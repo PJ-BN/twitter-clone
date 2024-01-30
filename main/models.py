@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UserData(models.Model):
     id = models.OneToOneField(User ,on_delete = models.CASCADE, primary_key = True )
-    username = models.CharField(max_length = 30)
+    username = models.CharField(max_length = 30, unique = True)
     firstname = models.CharField(max_length = 30)
     lastname = models.CharField(max_length = 30)
     email = models.EmailField(max_length=254)
@@ -17,7 +17,19 @@ class UserData(models.Model):
     class Meta:
         ordering = ['username']
 
-
+class TweetData(models.Model):
+    id = models.AutoField(primary_key = True)
+    username = models.OneToOneField(UserData,on_delete = models.CASCADE)
+    tweet = models.CharField(max_length = 150)
+    date = models.DateTimeField(auto_now_add=True)
+    like = models.IntegerField(default = 0)
+    comment = models.IntegerField(default = 0)
+    retweet = models.IntegerField(default = 0)
+    
+    class Meta:
+        ordering = ['username']
+        
+    
 
     
 
