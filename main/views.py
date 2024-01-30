@@ -145,6 +145,7 @@ def gettweet(request):
         username = data['user']
         user = UserData.objects.get(username = username)
         tweetdata = TweetData(username = user, tweet = data['content'], date = data['date']) 
+        print(data)
         tweetdata.save()
         print(data)
     except:
@@ -154,3 +155,31 @@ def gettweet(request):
     
     return JsonResponse({"status":"failed"})
     
+@csrf_exempt
+def sendtweet(request, pk):
+    """
+    Sends the tweet data.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response indicating the status of the tweet sending process.
+    """
+    try:
+        data = json.loads(request.body)
+        print(data)
+        username = data['user']
+        user = UserData.objects.get(username = username)
+        tweetdata = TweetData.objects.get(username = user)
+        
+        # Send the tweet and store its ID in our database for future reference
+        
+        
+    except:
+        print(" no data found")
+    if data:
+        serializerTweet = TweetDataSerializer(tweetdata)
+        return JsonResponse(serializerTweet.data, safe=False)
+    
+    return JsonResponse({"status":"failed"})

@@ -9,13 +9,13 @@ import Post from "./post";
 
 
 
-interface Tweet {
+interface Tweets {
   id: number;
   content: string;
 }
 
 const CentralNavbar = () => {
-  const [tweets, setTweets] = useState<Tweet[]>([]);
+  const [tweets, setTweets] = useState<Tweets[]>([]);
   const [newTweet, setNewTweet] = useState<string>("");
   const user = {
 
@@ -25,7 +25,7 @@ const CentralNavbar = () => {
 
   const handleTweetSubmit = () => {
     if (newTweet.trim() !== "") {
-      const newTweetObject: Tweet = {
+      const newTweetObject: Tweets = {
         id: Date.now(),
         content: newTweet,
       };

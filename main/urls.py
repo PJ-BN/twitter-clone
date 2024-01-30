@@ -8,7 +8,8 @@ urlpatterns = [
     path('signin', signup, name = "signup"),
     path('login', loginUser, name = "login"),
     path('profile/', profile, name = 'profile'),
-    path('tweet/', gettweet, name = "tweet")
+    path('tweet/', gettweet, name = "tweet"),
+    path('tweet/<int:pk>/', sendtweet, name = "send_tweet"),
 ]
 
 """

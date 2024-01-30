@@ -6,3 +6,7 @@ class UserDataSerializer(serializers.ModelSerializer):
         model = UserData
         fields = ['id', 'username', 'firstname', 'lastname', 'email','phoneNumber', 'address', 'gender', 'dateOfBirth']
         
+class TweetDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TweetData
+        fields = ['id', 'username', 'tweet', 'date', 'like', 'retweet', 'comment']

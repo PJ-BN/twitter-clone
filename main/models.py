@@ -19,7 +19,7 @@ class UserData(models.Model):
 
 class TweetData(models.Model):
     id = models.AutoField(primary_key = True)
-    username = models.OneToOneField(UserData,on_delete = models.CASCADE)
+    username = models.ForeignKey(UserData, on_delete = models.CASCADE)
     tweet = models.CharField(max_length = 150)
     date = models.DateTimeField(auto_now_add=True)
     like = models.IntegerField(default = 0)
