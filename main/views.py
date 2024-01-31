@@ -145,7 +145,6 @@ def gettweet(request):
         username = data['user']
         user = UserData.objects.get(username = username)
         tweetdata = TweetData(username = user, tweet = data['content'], date = data['date']) 
-        print(data)
         tweetdata.save()
         print(data)
     except:
@@ -171,7 +170,8 @@ def sendtweet(request, pk):
         print(data)
         username = data['user']
         user = UserData.objects.get(username = username)
-        tweetdata = TweetData.objects.get(username = user)
+        tweetdata = TweetData.objects.filter(username = user)
+        print(tweetdata)
         
         # Send the tweet and store its ID in our database for future reference
         
@@ -179,7 +179,8 @@ def sendtweet(request, pk):
     except:
         print(" no data found")
     if data:
-        serializerTweet = TweetDataSerializer(tweetdata)
-        return JsonResponse(serializerTweet.data, safe=False)
+        serializerTweet = TweetDataSerializer(tweetdata, many = True).data
+        return JsonResponse(serializerTweet, safe=False)
+        
     
     return JsonResponse({"status":"failed"})
