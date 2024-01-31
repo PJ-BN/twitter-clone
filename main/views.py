@@ -168,7 +168,7 @@ def sendtweet(request, pk):
     try:
         data = json.loads(request.body)
         print(data)
-        username = data['user']
+        username = data['username']
         user = UserData.objects.get(username = username)
         tweetdata = TweetData.objects.filter(username = user)
         print(tweetdata)

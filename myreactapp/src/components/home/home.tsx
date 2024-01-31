@@ -104,11 +104,11 @@ const CentralNavbar = () => {
       </div>
       <hr />
       <div className="tweet-secti">
-        {tweets.map((tweet) => (
+        {/* {tweets.map((tweet) => ( */}
           
           
-          <Tweet  key={tweet.id} tweet ={tweet} user = {user}/>
-        ))}
+          <Tweet    user = {user}/>
+        {/* ))} */}
       </div>
     </div>
   );

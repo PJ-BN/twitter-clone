@@ -1,19 +1,62 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 
 interface ChildProps{
-    tweet:{
-        id:number;
-        content: string;
-    }
+    
     user:{
         user: string;
         username:string;
     }
 }
 
-const Tweet: React.FC<ChildProps> = ({tweet, user})=> {
+const Tweet: React.FC<ChildProps> = ({ user})=> {
+  const [data, setData] = useState<any[]>([]);
+  const [hasFetched, setHasFetched] = useState(false);
+  interface tweets{
+    id:number;
+    content: string;
+  }
+
+  interface userdatas{
+    username: string;
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const userdata:userdatas = {
+    
+    username: user.username,
+    
+  }
+  const tweet:tweets = {
+    id: 1,
+    content: "lol"
+  }
+
+  useEffect(() => {
+
+    const fetchData = async ({userdata}: {userdata: userdatas}) => {
+      try {
+        const response = await axios.post('api/tweet/1/',userdata)
+        setData(response.data)
+        setHasFetched(true);
+
+              
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    
+    }
+  
+    if (!hasFetched) {
+      fetchData({ userdata });
+    }
+  }, [hasFetched, userdata])
+
+  console.log(userdata, data)
+
+
     return (
             <div key={tweet.id} className="tweet-section">
             <div className="post post-tweet">
