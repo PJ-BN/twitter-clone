@@ -10,17 +10,30 @@ import './profile.css'
 
 
 interface User {
-    name:string;
-    username: string;
-    bio: string;
-    followers: number;
-    following: number;
-    tweets: number;
-    avatar: string;
+  avatar: string;
+  address:string;
+  dateOfBirth:string;
+    email:string;
+    firstname:string;
+    gender:string;
+    id:number;
+    lastname:string
+    phoneNumber:string;
+    username:string;
   }
-// interface ProfilePageProps {
-//     user: User;
-//   }
+  
+  interface UserDisplyData {
+    name:string | undefined;
+    username: string | undefined;
+    bio: string | undefined;
+    followers: number | undefined;
+    following: number | undefined;
+    tweets: number | undefined;
+    avatar : string | undefined;
+
+    
+
+}
 
 const Profile: React.FC = ()=> {
    
@@ -36,7 +49,7 @@ const Profile: React.FC = ()=> {
     }
 
     // creating a state to store data which i get form server
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<User>();
     console.log(senddata)
     
     
@@ -52,16 +65,19 @@ const Profile: React.FC = ()=> {
       }, []);
 
     // const[ user, setUser] = useState<User[]>([])
-    const user:User = {
-        name: "Prajwal Bhandari",
-        username :  "Prajwal12",    
-        bio :  "lol i just code" ,
+
+    const user:UserDisplyData ={
+        name: data?.firstname,
+        username :  data?.username,    
+        bio :  data?.address ,
         followers :  0,
         following :  0,
         avatar : "https://i.stack.imgur.com/l6Fuv.png?g=true",
         tweets: 0
-
     }
+
+    
+    
 
    
 

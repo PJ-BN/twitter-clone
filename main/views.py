@@ -85,13 +85,13 @@ def profile(request):
         data = json.loads(request.body)
         user = data['key1']
         print(user)
+        if user:
+            userdata = UserData.objects.get(username= user)
+            print(userdata)
+            serializerUser = UserDataSerializer(userdata)
+            return JsonResponse(serializerUser.data, safe=False)
     except:
         print(" no data found")
-    if user:
-        userdata = UserData.objects.get(username= user)
-        print(userdata)
-        serializerUser = UserDataSerializer(userdata)
-        return JsonResponse(serializerUser.data, safe=False)
     print("error")
     return JsonResponse({'user': user})
     

@@ -9,16 +9,14 @@ interface ChildProps{
         user: string;
         username:string;
     }
+    fetched: boolean;
 }
 
-const Tweet: React.FC<ChildProps> = ({ user})=> {
+const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
   const [data, setData] = useState<any[]>([]);
-  const [hasFetched, setHasFetched] = useState(false);
-  interface tweets{
-    id:number;
-    content: string;
-  }
-
+  const [hasFetched, setHasFetched] = useState(fetched);
+  // setHasFetched(fetched)
+ 
   interface userdatas{
     username: string;
   }
@@ -29,10 +27,7 @@ const Tweet: React.FC<ChildProps> = ({ user})=> {
     username: user.username,
     
   }
-  const tweet:tweets = {
-    id: 1,
-    content: "lol"
-  }
+  
 
   useEffect(() => {
 
@@ -46,6 +41,8 @@ const Tweet: React.FC<ChildProps> = ({ user})=> {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
+      // setHasFetched(false);
+
     
     }
   
@@ -53,19 +50,25 @@ const Tweet: React.FC<ChildProps> = ({ user})=> {
       fetchData({ userdata });
     }
   }, [hasFetched, userdata])
+  console.log( data)
 
-  console.log(userdata, data)
 
 
     return (
-            <div key={tweet.id} className="tweet-section">
+      <div>
+        {data.slice()
+          .sort((a, b) => b.id - a.id)
+          .map((tweet) => (
+
+          
+          <div key={tweet.id} className="tweet-section">
             <div className="post post-tweet">
               <div className="profile-pic">
                 <img
                   src={process.env.PUBLIC_URL + "luffy.jpg"}
                   alt="profile-pic"
                   className="profile-pic"
-                />
+                  />
               </div>
               <div className="tweet-content">
                 <div className="tweet-user">
@@ -73,7 +76,7 @@ const Tweet: React.FC<ChildProps> = ({ user})=> {
                   <span>@{user.username}</span>
                 </div>
                 <div className="tweet-value">
-                  <p>{tweet.content}</p>
+                  <p>{tweet.tweet}</p>
                 </div>
                 <br />
                 <div className="below-section">
@@ -108,6 +111,8 @@ const Tweet: React.FC<ChildProps> = ({ user})=> {
 
             <hr />
           </div>
+      ))}
+      </div>
     )
 }
 

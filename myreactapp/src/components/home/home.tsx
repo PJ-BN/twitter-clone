@@ -1,11 +1,12 @@
 // NewNavbar.jsx
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
 import "./home.css"; // Import the CSS file for styling
 import Tweet from "../tweet";
 import Post from "./post";
+import Cookies from "js-cookie";
 
 
 
@@ -17,14 +18,16 @@ interface Tweets {
 const CentralNavbar = () => {
   const [tweets, setTweets] = useState<Tweets[]>([]);
   const [newTweet, setNewTweet] = useState<string>("");
+  const [hasFetched, setHasFetched] = useState(false);
   const user = {
 
     user : "Prajwal Bhandari",
-    username : "Prajwal12"
+    username : Cookies.get('username')?? ""
   }
 
   const handleTweetSubmit = () => {
     if (newTweet.trim() !== "") {
+      setHasFetched(true)
       const newTweetObject: Tweets = {
         id: Date.now(),
         content: newTweet,
@@ -53,6 +56,11 @@ const CentralNavbar = () => {
     console.log("Settings clicked");
     // Add your custom function logic here
   };
+
+  useCallback(() => {
+    console.log(hasFetched)
+
+  },[hasFetched])
 
   return (
     <div className="central-home">
@@ -107,7 +115,7 @@ const CentralNavbar = () => {
         {/* {tweets.map((tweet) => ( */}
           
           
-          <Tweet    user = {user}/>
+          <Tweet    user = {user} fetched = {hasFetched}/>
         {/* ))} */}
       </div>
     </div>

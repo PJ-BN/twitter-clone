@@ -27,7 +27,7 @@ class TweetData(models.Model):
     retweet = models.IntegerField(default = 0)
     
     class Meta:
-        ordering = ['username']
+        ordering = ['date']
         
     
 
