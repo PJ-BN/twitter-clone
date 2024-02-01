@@ -1,5 +1,5 @@
 // NewNavbar.jsx
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
@@ -7,6 +7,8 @@ import "./home.css"; // Import the CSS file for styling
 import Tweet from "../tweet";
 import Post from "./post";
 import Cookies from "js-cookie";
+import axios from "axios";
+
 
 
 
@@ -19,9 +21,12 @@ const CentralNavbar = () => {
   const [tweets, setTweets] = useState<Tweets[]>([]);
   const [newTweet, setNewTweet] = useState<string>("");
   const [hasFetched, setHasFetched] = useState(false);
+  const [hasUserFetched, setHasUserFetched] = useState(false);
+
+  const [username, setUserName] = useState<{ name: string }>({ name: "" });
   const user = {
 
-    user : "Prajwal Bhandari",
+    user : username?.name?? "",
     username : Cookies.get('username')?? ""
   }
 
@@ -57,10 +62,31 @@ const CentralNavbar = () => {
     // Add your custom function logic here
   };
 
-  useCallback(() => {
-    console.log(hasFetched)
+  useEffect(() => {
+    console.log("running")
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("/api/profile/"+user.username+"/",{"username":user.username})
+        setUserName(response.data)
+        setHasUserFetched(true);
 
-  },[hasFetched])
+              
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      // setHasFetched(false);
+
+    
+    }
+    
+    if (!hasUserFetched) {
+      console.log("trueaa")
+      fetchData();
+    }
+  },[hasUserFetched, user.username])
+  
+  console.log(username)
+
 
   return (
     <div className="central-home">

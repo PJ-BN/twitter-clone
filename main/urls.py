@@ -10,6 +10,7 @@ urlpatterns = [
     path('profile/', profile, name = 'profile'),
     path('tweet/', gettweet, name = "tweet"),
     path('tweet/<int:pk>/', sendtweet, name = "send_tweet"),
+    path('profile/<str:pk>/' , sendname, name = "send_name"),
 ]
 
 """

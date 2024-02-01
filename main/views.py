@@ -184,3 +184,17 @@ def sendtweet(request, pk):
         
     
     return JsonResponse({"status":"failed"})
+
+@csrf_exempt
+def sendname(request, pk):
+    try:
+        data = json.loads(request.body)
+        print(data)
+        print(pk)
+        username = data['username']
+        user = User.objects.get(username = username)
+        print(user.first_name)
+        return JsonResponse({"name":user.first_name + " " + user.last_name})
+    except:
+        print(" no data found")
+    return JsonResponse({"status":"failed"})
