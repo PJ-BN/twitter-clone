@@ -1,7 +1,13 @@
+/**
+ * This function takes in a number and returns its square.
+ * @param {number} num - The number to be squared.
+ * @returns {number} The square of the input number.
+ */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
+
 
 interface ChildProps{
     
