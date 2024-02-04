@@ -2,6 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import "./tweet.css"
+
 
 interface ChildProps{
     
@@ -72,7 +75,10 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
               </div>
               <div className="tweet-content">
                 <div className="tweet-user">
+                  <Link to="/profile/">
+
                   <b>{user.user}</b>
+                  </Link>
                   <span>@{user.username}</span>
                 </div>
                 <div className="tweet-value">

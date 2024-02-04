@@ -1,0 +1,21 @@
+.tweet-user{
+    text-decoration: none;
+    /* /* font-size: 1.5rem; */
+    /* margin-right: 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem; */
+    display: flex;
+    /* align-items: center;
+    /* justify-content: center; */
+    text-align: center; */
+    /* background-color: #f5f8fa; */
+    /* border: 1px solid #1DA1F2; */
+    /* cursor: pointer; */
+    
+ &:hover{
+    border-bottom: 1px solid black;
+ }  
+}

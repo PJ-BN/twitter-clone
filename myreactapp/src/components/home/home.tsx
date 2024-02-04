@@ -1,10 +1,10 @@
 // NewNavbar.jsx
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 // import { Link } from 'react-router-dom';
 import "./home.css"; // Import the CSS file for styling
-import Tweet from "../tweet";
+import Tweet from "./tweet/tweet";
 import Post from "./post";
 import Cookies from "js-cookie";
 import axios from "axios";
