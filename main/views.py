@@ -185,8 +185,20 @@ def sendtweet(request, pk):
     
     return JsonResponse({"status":"failed"})
 
+
+
 @csrf_exempt
 def sendname(request, pk):
+    """
+    Retrieves the user's name.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key.
+
+    Returns:
+        A JSON response containing the user's name.
+    """
     try:
         data = json.loads(request.body)
         print(data)
