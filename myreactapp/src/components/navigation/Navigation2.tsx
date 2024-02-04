@@ -30,11 +30,11 @@ const Navigation2: React.FC<ChildProps> = () => {
                         <Route path = '/home' element = {<CentralNavbar />}></Route>
 
                         <Route path = '/*' element = {< Profile />}></Route>
-                        <Route path = '/explore' element = {< Profile />}></Route>
-                        <Route path = '/notifications' element = {< Profile />}></Route>
-                        <Route path = '/messages' element = {< Profile />}></Route>
-                        <Route path = '/bookmarks' element = {< Profile />}></Route>
-                        <Route path = '/communities' element = {< Profile />}></Route>
+                        <Route path = '/explore' element = {"hello"}></Route>
+                        <Route path = '/notifications' element = {"hello"}></Route>
+                        <Route path = '/messages' element = {"hello"}></Route>
+                        <Route path = '/bookmarks' element = {"hello"}></Route>
+                        <Route path = '/communities' element = {"hello"}></Route>
 
 
 

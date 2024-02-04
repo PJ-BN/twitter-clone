@@ -2,7 +2,7 @@ import React, {  useState , useEffect} from "react";
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 import './profile.css'
 // import { Routes, Route } from "react-router-dom";
@@ -38,23 +38,33 @@ interface User {
 const Profile: React.FC = ()=> {
    
     // setting interface for my cookie data
-    interface cookieData{
-        key1:string
-    }
+    // interface cookieData{
+    //     key1:string
+    // }
 
 
     // assigning the cookie data to my inerface
-    const senddata: cookieData ={
-        key1: Cookies.get()['username']
-    }
-
+    
     // creating a state to store data which i get form server
     const [data, setData] = useState<User>();
-    console.log(senddata)
+    // console.log(senddata)
     
     
     // sending post request to server
     useEffect(() => {
+      const currentUrl = window.location.href;
+      
+      // Split the URL by '/'
+      const urlParts = currentUrl.split('/');
+      
+      // Get the last part of the URL (after the last '/')
+      const lastPart = urlParts[urlParts.length - 1];
+      
+      const senddata ={
+          key1: lastPart
+      }
+      console.log("the last part is :"+senddata)
+
         axios.post('/api/profile/',senddata)
         .then(response =>{ setData(response.data)})
           
@@ -67,7 +77,7 @@ const Profile: React.FC = ()=> {
     // const[ user, setUser] = useState<User[]>([])
 
     const user:UserDisplyData ={
-        name: data?.firstname,
+        name: data?.firstname + " " + data?.lastname,
         username :  data?.username,    
         bio :  data?.address ,
         followers :  0,
