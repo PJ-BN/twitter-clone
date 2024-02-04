@@ -17,18 +17,20 @@ const Navbar: React.FC = () => {
     window.location.reload();
   }
 
+  const username = Cookies.get('username');
+
   return (
     <div  className='main-navbar'>
 
       <div className="navbar">
         <div className="logo">
-          <Link to="/">
+          <Link to="/home">
             <FontAwesomeIcon icon={faTwitter} size="2x" />
           </Link>
         </div>
         <ul>
           <li>
-            <Link to="/">
+            <Link to="/home">
               <FontAwesomeIcon icon={faHome} className="custom-icon"/>
               Home
             </Link>
@@ -76,7 +78,7 @@ const Navbar: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/profile">
+            <Link to={username ? `/${username}` : "/"}>
               <FontAwesomeIcon icon={faUser} className="custom-icon"/>
               Profile
             </Link>

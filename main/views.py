@@ -208,5 +208,12 @@ def sendname(request, pk):
         print(user.first_name)
         return JsonResponse({"name":user.first_name + " " + user.last_name})
     except:
-        print(" no data found")
+        try:
+            print(pk)
+            user = User.objects.get( username= pk)
+            print(user)
+            print(user.first_name)
+            return JsonResponse({"name":user.first_name + " " + user.last_name})
+        except:
+            print(" no data found")
     return JsonResponse({"status":"failed"})

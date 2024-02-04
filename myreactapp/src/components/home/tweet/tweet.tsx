@@ -81,7 +81,7 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
               </div>
               <div className="tweet-content">
                 <div className="tweet-user">
-                  <Link to="/profile/" className="tweet-username">
+                  <Link to={user.username} className="tweet-username">
 
                   <b>{user.user}</b>
                   </Link>

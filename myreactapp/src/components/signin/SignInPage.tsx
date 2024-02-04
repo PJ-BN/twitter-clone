@@ -45,7 +45,7 @@ const SignInPage: React.FC<ChildProps> = ({onDataToParent}) => {
   const sendDataToParent = (data: string, username:string) => {
     // Call the callback function provided by the parent
     onDataToParent(data, username);
-    navigate('/');
+    navigate('/home');
   };
 
   // Sending data to the server using axios

@@ -27,9 +27,9 @@ const Navigation2: React.FC<ChildProps> = () => {
                 <div className='Central-component'>
                     
                     <Routes >
-                        <Route path = '/' element = {<CentralNavbar />}></Route>
+                        <Route path = '/home' element = {<CentralNavbar />}></Route>
 
-                        <Route path = '/profile' element = {< Profile />}></Route>
+                        <Route path = '/*' element = {< Profile />}></Route>
                         <Route path = '/explore' element = {< Profile />}></Route>
                         <Route path = '/notifications' element = {< Profile />}></Route>
                         <Route path = '/messages' element = {< Profile />}></Route>
