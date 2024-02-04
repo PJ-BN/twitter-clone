@@ -1,0 +1,10 @@
+images
+
+main/__pycache__
+main/migrations
+
+twitter/__pycache__
+
+db.sqlite3
+package-lock.json
+package.json
