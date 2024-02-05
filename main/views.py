@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -171,7 +172,17 @@ def sendtweet(request, pk):
         username = data['username']
         user = UserData.objects.get(username = username)
         tweetdata = TweetData.objects.filter(username = user)
-        print(tweetdata)
+        page = request.GET.get('page', 1)
+        paginator = Paginator(tweetdata, 10)
+        
+        # Show 10 tweets per page
+        try:
+            tweetdata_page = paginator.page(page)
+        except PageNotAnInteger:
+            tweetdata_page = paginator.page(1)
+        except EmptyPage:
+            tweetdata_page = paginator.page(paginator.num_pages)
+
         
         # Send the tweet and store its ID in our database for future reference
         
@@ -179,8 +190,14 @@ def sendtweet(request, pk):
     except:
         print(" no data found")
     if data:
-        serializerTweet = TweetDataSerializer(tweetdata, many = True).data
-        return JsonResponse(serializerTweet, safe=False)
+        
+        serializerTweet = TweetDataSerializer(tweetdata_page, many = True).data
+        response_data = {
+            'status': 'success',
+            'total_pages': paginator.num_pages,
+            'data': serializerTweet,
+        }
+        return JsonResponse(response_data, safe=False)
         
     
     return JsonResponse({"status":"failed"})

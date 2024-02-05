@@ -4,7 +4,7 @@
  * @returns {number} The square of the input number.
  */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { faComment, faRetweet, faHeart, faEye, faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -24,7 +24,9 @@ interface ChildProps{
 const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
   const [data, setData] = useState<any[]>([]);
   const [hasFetched, setHasFetched] = useState(fetched);
-  // setHasFetched(fetched)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const loaderRef = useRef(null);
  
   interface userdatas{
     username: string;
@@ -42,8 +44,11 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
 
     const fetchData = async ({userdata}: {userdata: userdatas}) => {
       try {
-        const response = await axios.post('api/tweet/1/',userdata)
-        setData(response.data)
+        // eslint-disable-next-line no-template-curly-in-string
+        const response = await axios.post('api/tweet/1/?page=${currentPage}/',userdata)
+        // setData(response.data.data)
+        setData((prevData) => [...prevData, ...response.data.data]);
+        setTotalPages(response.data.total_pages);
         setHasFetched(true);
 
               
@@ -58,9 +63,36 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
     if (!hasFetched) {
       fetchData({ userdata });
     }
-  }, [hasFetched, userdata])
+  }, [hasFetched, userdata, currentPage])
   console.log( data)
+  
+  const handleObserver = (entities: IntersectionObserverEntry[]) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setCurrentPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
+    }
+  };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, {
+      root: null,
+      rootMargin: '20px',
+      threshold: 0.5,
+    });
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaderRef, totalPages]);
+  console.log(currentPage, totalPages)
 
 
     return (
@@ -70,7 +102,7 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
           .map((tweet) => (
 
           
-          <div key={tweet.id} className="tweet-section">
+          <div key={currentPage+""+tweet.id} className="tweet-section">
             <div className="post post-tweet">
               <div className="profile-pic">
                 <img
