@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
         </div>
         <ul>
           <li>
-            <Link to="/home">
+            <Link to="/">
               <FontAwesomeIcon icon={faHome} className="custom-icon"/>
               Home
             </Link>

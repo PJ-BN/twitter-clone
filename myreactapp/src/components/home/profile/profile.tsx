@@ -5,6 +5,7 @@ import axios from 'axios';
 // import Cookies from "js-cookie";
 
 import './profile.css'
+import Tweet from "../tweet/tweet";
 // import { Routes, Route } from "react-router-dom";
 // import CentralNavbar from "../home";
 
@@ -49,6 +50,7 @@ const Profile: React.FC = ()=> {
     const [data, setData] = useState<User>();
     // console.log(senddata)
     
+    const [hasFetched, setHasFetched] = useState(false);
     
     // sending post request to server
     useEffect(() => {
@@ -66,7 +68,9 @@ const Profile: React.FC = ()=> {
       console.log("the last part is :"+senddata)
 
         axios.post('/api/profile/',senddata)
-        .then(response =>{ setData(response.data)})
+        .then(response =>{ setData(response.data)
+        setHasFetched(true)
+        })
           
           .catch(error => {
             console.error('Error fetching data:', error);
@@ -85,6 +89,13 @@ const Profile: React.FC = ()=> {
         avatar : "https://i.stack.imgur.com/l6Fuv.png?g=true",
         tweets: 0
     }
+
+    const childUser = {
+      user:user?.name?? '',
+      username:user?.username?? ''
+    }
+
+
 
     
     
@@ -137,6 +148,9 @@ const Profile: React.FC = ()=> {
         </div>
         <hr />
         {/* Additional content for tweets, media, etc. can be added here */}
+        <div>
+          <Tweet user={childUser} fetched = {hasFetched} />
+        </div>
       </div>
     )
 }
