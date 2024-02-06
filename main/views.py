@@ -3,13 +3,16 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from rest_framework.parsers import JSONParser
+from rest_framework.pagination import PageNumberPagination
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import *
 from .serializers import *
 from django.conf import settings
 from PIL import Image
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
 
 def home(request):
     """
@@ -172,6 +175,9 @@ def sendtweet(request, pk):
         username = data['username']
         user = UserData.objects.get(username = username)
         tweetdata = TweetData.objects.filter(username = user)
+        # paginator = CustomPagination()
+        # paginated_items = paginator.paginate_queryset(tweetdata, request)
+        # print("the item is",paginated_items)
         page = request.GET.get('page', 1)
         paginator = Paginator(tweetdata, 10)
         

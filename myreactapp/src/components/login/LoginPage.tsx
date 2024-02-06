@@ -21,7 +21,7 @@ const LoginPage: React.FC<ChildProps> = ({onDataToParent}) => {
   const sendDataToParent = (data: string, username :string) => {
     // Call the callback function provided by the parent
     onDataToParent(data, username);
-    navigate('/home');
+    navigate('/');
   };
 
   const addCookie = (key:string , value:string) => {
