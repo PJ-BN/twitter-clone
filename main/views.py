@@ -91,12 +91,16 @@ def profile(request):
         print(user)
         if user:
             userdata = UserData.objects.get(username= user)
-            count = TweetData.objects.filter(username = userdata).count()
+            count_tweet = TweetData.objects.filter(username = userdata).count()
+            count_follower = UserFollowInfos.objects.filter(username = userdata).count()
+            count_following = UserFollowInfos.objects.filter(follow = userdata).count()
             print(userdata)
             serializerUser = UserDataSerializer(userdata)
             return_data = {
                 "data":serializerUser.data,
-                "tweet_count":count,
+                "tweet_count":count_tweet,
+                "count_follower":count_follower,
+                "count_following": count_following,
             }
             return JsonResponse(return_data, safe=False)
     except:
@@ -227,12 +231,18 @@ def sendname(request, pk):
     Returns:
         A JSON response containing the user's name.
     """
+    user = "Prajwal12"
+    # count_follower = UserFollowInfos.objects.filter(username = user).count()
     try:
         data = json.loads(request.body)
         print(data)
         print(pk)
         username = data['username']
         user = User.objects.get(username = username)
+        print("user:",user)
+        
+        # follower = UserFollowInfos.objects.filter(username = user)
+        # print(" follower" ,follower)
         print(user.first_name)
         return JsonResponse({"name":user.first_name + " " + user.last_name})
     except:
@@ -240,8 +250,12 @@ def sendname(request, pk):
             print(pk)
             user = User.objects.get( username= pk)
             print(user)
+            follower = UserFollowInfos.objects.filter(username = user)
+            print(" follower" ,follower)
             print(user.first_name)
             return JsonResponse({"name":user.first_name + " " + user.last_name})
         except:
             print(" no data found")
     return JsonResponse({"status":"failed"})
+
+

@@ -52,6 +52,8 @@ const Profile: React.FC = ()=> {
     // console.log(senddata)
 
     const [tweetCount, setTweetCount] = useState(0)
+    const [followerCount , setFollowerCount]= useState(0)
+    const [followingCount, setFollowingCount] = useState(0)
     
     const [hasFetched, setHasFetched] = useState(false);
     
@@ -74,6 +76,8 @@ const Profile: React.FC = ()=> {
         .then(response =>{ setData(response.data.data)
         setHasFetched(true)
         setTweetCount(response.data.tweet_count)
+        setFollowerCount(response.data.count_follower)
+        setFollowingCount(response.data.count_following)
         })
           
           .catch(error => {
@@ -88,8 +92,8 @@ const Profile: React.FC = ()=> {
         name: data?.firstname + " " + data?.lastname,
         username :  data?.username,    
         bio :  data?.address ,
-        followers :  0,
-        following :  0,
+        followers :  followerCount,
+        following :  followingCount,
         avatar : "https://i.stack.imgur.com/l6Fuv.png?g=true",
         tweets: tweetCount
     }
