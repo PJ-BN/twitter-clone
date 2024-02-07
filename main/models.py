@@ -30,6 +30,11 @@ class TweetData(models.Model):
         ordering = ['date']
         
     
-
+class UserFollowInfos(models.Model):
+    username = models.OneToOneField(UserData, on_delete=models.CASCADE)
+    follow = models.ForeignKey(UserData, on_delete= models.CASCADE, related_name = "following")
     
+    
+    class Meta:
+        ordering = ['username']
 
