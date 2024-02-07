@@ -19,13 +19,14 @@ interface ChildProps{
         username:string;
     }
     fetched: boolean;
+    startpage:number;
 }
 
-const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
+const Tweet: React.FC<ChildProps> = ({ user, fetched, startpage})=> {
   const [data, setData] = useState<any[]>([]);
   const [hasFetched, setHasFetched] = useState(fetched);
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(startpage);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -78,6 +79,7 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
     
     
     if (hasMore && !loading && !hasFetched)  {
+      setHasMore(false)
       setHasFetched(true);
       fetchData({ userdata });
       

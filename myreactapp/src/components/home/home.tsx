@@ -141,7 +141,7 @@ const CentralNavbar = () => {
         {/* {tweets.map((tweet) => ( */}
           
           
-          <Tweet    user = {user} fetched = {hasFetched}/>
+          <Tweet    user = {user} fetched = {hasFetched} startpage={1}/>
         {/* ))} */}
       </div>
     </div>

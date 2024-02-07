@@ -65,7 +65,7 @@ const Profile: React.FC = ()=> {
       const senddata ={
           key1: lastPart
       }
-      console.log("the last part is :"+senddata)
+      console.log("the last part is :"+senddata.key1)
 
         axios.post('/api/profile/',senddata)
         .then(response =>{ setData(response.data)
@@ -95,7 +95,18 @@ const Profile: React.FC = ()=> {
       username:user?.username?? ''
     }
 
+    const tweetDisplay  = () =>{
+      if(data){
 
+        return(
+          <div>
+            <Tweet user={childUser} fetched = {hasFetched} startpage={0} />
+          </div>
+        )
+      }
+    }
+
+   
 
     
     
@@ -149,7 +160,7 @@ const Profile: React.FC = ()=> {
         <hr />
         {/* Additional content for tweets, media, etc. can be added here */}
         <div>
-          <Tweet user={childUser} fetched = {hasFetched} />
+          {tweetDisplay()}
         </div>
       </div>
     )
