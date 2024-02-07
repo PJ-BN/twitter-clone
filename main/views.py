@@ -91,9 +91,14 @@ def profile(request):
         print(user)
         if user:
             userdata = UserData.objects.get(username= user)
+            count = TweetData.objects.filter(username = userdata).count()
             print(userdata)
             serializerUser = UserDataSerializer(userdata)
-            return JsonResponse(serializerUser.data, safe=False)
+            return_data = {
+                "data":serializerUser.data,
+                "tweet_count":count,
+            }
+            return JsonResponse(return_data, safe=False)
     except:
         print(" no data found")
     print("error")

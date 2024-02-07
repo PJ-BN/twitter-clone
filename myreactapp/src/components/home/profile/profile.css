@@ -31,6 +31,31 @@ hr{
   text-align: center;
 }
 
+.follow-edit-button{
+  margin-top: 10px;
+  transition: 0.3;
+
+  &:hover{
+    background-color: rgb(48, 42, 165);
+    color:rgb(8, 7, 7);
+
+  }
+
+
+}
+
+.user-edit-follow{
+  text-align: center;
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30%;
+  margin-right: 30%;
+
+
+}
+
 .avatar {
   width: 150px;
   height: 150px;

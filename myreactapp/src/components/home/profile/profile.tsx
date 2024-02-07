@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import './profile.css'
 import Tweet from "../tweet/tweet";
+import Cookies from "js-cookie";
 // import { Routes, Route } from "react-router-dom";
 // import CentralNavbar from "../home";
 
@@ -49,6 +50,8 @@ const Profile: React.FC = ()=> {
     // creating a state to store data which i get form server
     const [data, setData] = useState<User>();
     // console.log(senddata)
+
+    const [tweetCount, setTweetCount] = useState(0)
     
     const [hasFetched, setHasFetched] = useState(false);
     
@@ -68,8 +71,9 @@ const Profile: React.FC = ()=> {
       console.log("the last part is :"+senddata.key1)
 
         axios.post('/api/profile/',senddata)
-        .then(response =>{ setData(response.data)
+        .then(response =>{ setData(response.data.data)
         setHasFetched(true)
+        setTweetCount(response.data.tweet_count)
         })
           
           .catch(error => {
@@ -87,7 +91,7 @@ const Profile: React.FC = ()=> {
         followers :  0,
         following :  0,
         avatar : "https://i.stack.imgur.com/l6Fuv.png?g=true",
-        tweets: 0
+        tweets: tweetCount
     }
 
     const childUser = {
@@ -106,7 +110,24 @@ const Profile: React.FC = ()=> {
       }
     }
 
-   
+   const editFollow = () =>{
+    if(user.username === Cookies.get("username")){
+      return(
+        <div >
+          <button className="follow-edit-button">Edit Profile</button>
+
+        </div>
+      )
+    }
+    else{
+      return(
+        <div>
+          <button className="follow-edit-button">Follow</button>
+
+        </div>
+      )
+    }
+   }
 
     
     
@@ -119,7 +140,11 @@ const Profile: React.FC = ()=> {
         <div className="profile-header">
           <img src={user.avatar} alt="User Avatar" className="avatar" />
           <h1>{user.name}</h1>
-          <span>@{ user.username}</span>
+          <div className="user-edit-follow">
+
+          <p>@{ user.username}</p>
+           {editFollow()}
+          </div>
           <p className="bio">{user.bio}</p>
         </div>
   
