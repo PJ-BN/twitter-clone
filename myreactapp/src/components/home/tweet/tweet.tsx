@@ -24,9 +24,15 @@ interface ChildProps{
 const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
   const [data, setData] = useState<any[]>([]);
   const [hasFetched, setHasFetched] = useState(fetched);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const loaderRef = useRef(null);
+
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
+  // const loaderRef = useRef(null);
  
   interface userdatas{
     username: string;
@@ -41,68 +47,80 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
   
 
   useEffect(() => {
-
     const fetchData = async ({userdata}: {userdata: userdatas}) => {
+      
+      setLoading(true);
       try {
+        console.log("page:"+page)
+        const url = "api/tweet/1/?page="+page
         // eslint-disable-next-line no-template-curly-in-string
-        const response = await axios.post('api/tweet/1/?page=${currentPage}/',userdata)
-        // setData(response.data.data)
-        setData((prevData) => [...prevData, ...response.data.data]);
-        setTotalPages(response.data.total_pages);
-        setHasFetched(true);
+        axios.post(url,userdata)
+        .then(response =>{
+
+          console.log(response.data.data)
+          setData((prevData) => [...prevData, ...response.data.data]);
+          setHasMore(response.data.total_pages > page);
+          // setTotalPages(response.data.total_pages);
+          // setTotalPages(response.data.total_pages);
+        })
 
               
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally{
+        setLoading(false)
+
       }
       // setHasFetched(false);
 
     
     }
-  
-    if (!hasFetched) {
+    
+    
+    if (hasMore && !loading && !hasFetched)  {
+      setHasFetched(true);
       fetchData({ userdata });
+      
     }
-  }, [hasFetched, userdata, currentPage])
-  console.log( data)
   
-  const handleObserver = (entities: IntersectionObserverEntry[]) => {
-    const target = entities[0];
-    if (target.isIntersecting) {
-      setCurrentPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
-    }
-  };
-
+  }, [hasFetched, hasMore, loading, page, userdata]);
   useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, {
+    const options = {
       root: null,
-      rootMargin: '20px',
-      threshold: 0.5,
-    });
+      rootMargin: '10px',
+      threshold: 1.0,
+    };
+    console.log("loading :"+loading)
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasMore && !loading) {
+        setPage(prevPage => prevPage + 1);
+        console.log("at last")
+
+        setHasFetched(false)
+      }
+    }, options);
+
+    if (observer.current) {
+      observer.current.observe(document.querySelector('#scrollObserver') as Element);
     }
 
     return () => {
-      if (loaderRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(loaderRef.current);
+      if (observer.current) {
+        observer.current.disconnect();
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaderRef, totalPages]);
-  console.log(currentPage, totalPages)
-
+  }, [loading, hasMore]);
+  console.log(data)
 
     return (
       <div>
-        {data.slice()
-          .sort((a, b) => b.id - a.id)
-          .map((tweet) => (
+        {/* slice()
+          .sort((a, b) => b.id - a.id) */}
+        {data.map((tweet) => (
 
           
-          <div key={currentPage+""+tweet.id} className="tweet-section">
+          <div key={tweet.id} className="tweet-section">
             <div className="post post-tweet">
               <div className="profile-pic">
                 <img
@@ -156,6 +174,9 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched})=> {
             <hr />
           </div>
       ))}
+       <div id="scrollObserver" style={{ height: '10px', margin: '5px' }}></div>
+      {loading && <div>Loading...</div>}
+    
       </div>
     )
 }
