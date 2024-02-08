@@ -7,6 +7,7 @@ import axios from 'axios';
 import './profile.css'
 import Tweet from "../tweet/tweet";
 import Cookies from "js-cookie";
+import WebSocketComponent from "../WebSocketComponent";
 // import { Routes, Route } from "react-router-dom";
 // import CentralNavbar from "../home";
 
@@ -187,10 +188,14 @@ const Profile: React.FC = ()=> {
                 </Link>
         </div>
         <hr />
+        <div>
+          <WebSocketComponent />
+        </div>
         {/* Additional content for tweets, media, etc. can be added here */}
         <div>
           {tweetDisplay()}
         </div>
+
       </div>
     )
 }
