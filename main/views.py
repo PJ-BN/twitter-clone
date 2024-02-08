@@ -203,7 +203,13 @@ def sendtweet(request, pk):
         print(data)
         username = data['username']
         user = UserData.objects.get(username = username)
-        tweetdata = TweetData.objects.filter(username = user)
+        user_follower = UserFollowInfos.objects.filter(username = user)
+        totaluser = [ (i.follow) for i in user_follower] 
+        totaluser.append(user)
+        print("user follower :", totaluser)
+        for i in user_follower:
+            print(i.follow)
+        tweetdata = TweetData.objects.filter(username__in = totaluser)
         # paginator = CustomPagination()
         # paginated_items = paginator.paginate_queryset(tweetdata, request)
         # print("the item is",paginated_items)
