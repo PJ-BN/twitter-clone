@@ -84,16 +84,35 @@ def profile(request):
     Returns:
         A JSON response containing the user profile data.
     """
-    img = settings.MEDIA_ROOT + settings.MEDIA_URL + 'profile.jpg'
+    # img = settings.MEDIA_ROOT + settings.MEDIA_URL + 'profile.jpg'
     try:
         data = json.loads(request.body)
         user = data['key1']
-        print(user)
+        logged_user = data['key2']
+        print(user,logged_user)
         if user:
             userdata = UserData.objects.get(username= user)
             count_tweet = TweetData.objects.filter(username = userdata).count()
-            count_follower = UserFollowInfos.objects.filter(username = userdata).count()
-            count_following = UserFollowInfos.objects.filter(follow = userdata).count()
+            count_following = UserFollowInfos.objects.filter(username = userdata).count()
+            count_follower = UserFollowInfos.objects.filter(follow = userdata).count()
+            
+            if(user != logged_user):
+                check_user = UserData.objects.get(username= logged_user)
+                check_follow = UserFollowInfos.objects.filter(username = check_user).values('follow')
+                print("followed: ", check_follow)
+                print("user: ", userdata.id.id)
+                item_to_check = check_follow.filter(follow = userdata.id.id)
+                if(item_to_check):
+                    button_value ="Unfollow"
+                    
+                else:
+                    button_value = "Follow"
+                    
+            else:
+                button_value = "Edit"
+
+                
+            
             print(userdata)
             serializerUser = UserDataSerializer(userdata)
             return_data = {
@@ -101,6 +120,7 @@ def profile(request):
                 "tweet_count":count_tweet,
                 "count_follower":count_follower,
                 "count_following": count_following,
+                "follow_button":button_value,
             }
             return JsonResponse(return_data, safe=False)
     except:
@@ -231,7 +251,6 @@ def sendname(request, pk):
     Returns:
         A JSON response containing the user's name.
     """
-    user = "Prajwal12"
     # count_follower = UserFollowInfos.objects.filter(username = user).count()
     try:
         data = json.loads(request.body)
@@ -259,3 +278,42 @@ def sendname(request, pk):
     return JsonResponse({"status":"failed"})
 
 
+@csrf_exempt
+def followuser(request):
+    """
+    Follows a user.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response indicating the status of the user following process.
+    """
+    try:
+        data = json.loads(request.body)
+        print(data)
+        username = data['username']
+        follow = data['follow']
+        condition = data['follow_button']
+        user = UserData.objects.get(username = username)
+        print(user)
+        follow_user = UserData.objects.get(username = follow)
+        print(follow_user)
+        if condition == "Unfollow":
+            UserFollowInfos.objects.filter(username = user, follow = follow_user).delete()
+            follow_button = "Follow"
+        else :
+            followdata = UserFollowInfos(username = user, follow = follow_user)
+            followdata.save()
+            follow_button = "Unfollow"
+            print("done")
+    except:
+        print(" no data found")
+    if data:
+        response = {
+            "status":"success",
+            "follow_button":follow_button,
+        }
+        return JsonResponse(response)
+    
+    return JsonResponse({"status":"failed"})

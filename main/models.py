@@ -31,7 +31,7 @@ class TweetData(models.Model):
         
     
 class UserFollowInfos(models.Model):
-    username = models.OneToOneField(UserData, on_delete=models.CASCADE)
+    username = models.ForeignKey(UserData, on_delete=models.CASCADE)
     follow = models.ForeignKey(UserData, on_delete= models.CASCADE, related_name = "following")
     
     
