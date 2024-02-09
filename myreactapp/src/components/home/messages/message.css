@@ -15,3 +15,60 @@
       background-color: #302e2e;
     }
 }
+
+.top-section{
+    display: grid;
+    grid-template-columns: 80% 10% 10%;
+    padding : 10px;
+    font-size: 20px;
+}
+
+.top-search-bar{
+    padding: 10px;
+}
+
+.search-bar{
+    background-color: #070707;
+    border: 1px solid #4b4949;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    width: 90%;
+}
+
+
+.tweet-user{
+    color: rgb(160, 157, 155);
+    font-size: 18px;
+
+}
+
+.profile-pic{
+    width: 40px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.span-username{
+    color: rgb(131, 124, 124);
+    padding-left: 10px;
+}
+
+.tweet-section{
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    &:hover{
+        background-color: rgb(30, 30, 31);
+    }
+
+    &:focus{
+        background-color: rgb(30, 30, 31);
+
+    }
+}
+nav{
+    all: initial;
+}
