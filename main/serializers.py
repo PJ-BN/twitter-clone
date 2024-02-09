@@ -10,3 +10,5 @@ class TweetDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = TweetData
         fields = '__all__'
+        
+    

@@ -17,6 +17,7 @@ interface ChildProps{
     user:{
         user: string;
         username:string;
+        profile:boolean;
     }
     fetched: boolean;
     startpage:number;
@@ -37,12 +38,14 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched, startpage})=> {
  
   interface userdatas{
     username: string;
+    profile: boolean;
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const userdata:userdatas = {
     
     username: user.username,
+    profile : user.profile,
     
   }
   
@@ -133,11 +136,11 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched, startpage})=> {
               </div>
               <div className="tweet-content">
                 <div className="tweet-user">
-                  <Link to={user.username}  className="tweet-username" replace>
+                  <Link to={tweet.username}  className="tweet-username" replace>
 
-                  <b>{user.user}</b>
+                  <b>{tweet.name}</b>
                   </Link>
-                  <span>@{user.username}</span>
+                  <span>@{tweet.username}</span>
                 </div>
                 <div className="tweet-value">
                   <p>{tweet.tweet}</p>

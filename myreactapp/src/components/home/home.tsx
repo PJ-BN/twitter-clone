@@ -27,7 +27,8 @@ const CentralNavbar = () => {
   const user = {
 
     user : username?.name?? "",
-    username : Cookies.get('username')?? ""
+    username : Cookies.get('username')?? "",
+    profile:false,
   }
 
   const handleTweetSubmit = () => {

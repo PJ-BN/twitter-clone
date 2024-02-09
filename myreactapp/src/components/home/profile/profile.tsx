@@ -105,7 +105,8 @@ const Profile: React.FC = ()=> {
 
     const childUser = {
       user:user?.name?? '',
-      username:user?.username?? ''
+      username:user?.username?? '',
+      profile : true,
     }
 
     const tweetDisplay  = () =>{

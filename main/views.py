@@ -202,19 +202,24 @@ def sendtweet(request, pk):
         data = json.loads(request.body)
         print(data)
         username = data['username']
-        user = UserData.objects.get(username = username)
-        user_follower = UserFollowInfos.objects.filter(username = user)
-        totaluser = [ (i.follow) for i in user_follower] 
-        totaluser.append(user)
-        print("user follower :", totaluser)
-        for i in user_follower:
-            print(i.follow)
-        tweetdata = TweetData.objects.filter(username__in = totaluser)
+        profile = data['profile']
+        user = UserData.objects.get(username=username)
+        print("profile: ", profile)
+        if profile :
+            tweetdata = TweetData.objects.filter(username=user)
+
+        else:
+            user_follower = UserFollowInfos.objects.filter(username=user)
+            totaluser = [(i.follow) for i in user_follower]
+            totaluser.append(user)
+            
+            tweetdata = TweetData.objects.filter(username__in=totaluser)
         # paginator = CustomPagination()
         # paginated_items = paginator.paginate_queryset(tweetdata, request)
         # print("the item is",paginated_items)
         page = request.GET.get('page', 1)
         paginator = Paginator(tweetdata, 10)
+        
         
         # Show 10 tweets per page
         try:
@@ -233,6 +238,13 @@ def sendtweet(request, pk):
     if data:
         
         serializerTweet = TweetDataSerializer(tweetdata_page, many = True).data
+        for i in serializerTweet:
+            userid = i['username']
+            user_to = UserData.objects.get(id = userid)
+            i['username'] =user_to.username
+            i['name']= user_to.firstname + " " + user_to.lastname
+            
+            
         response_data = {
             'status': 'success',
             'total_pages': paginator.num_pages,
