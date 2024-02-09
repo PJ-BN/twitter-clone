@@ -1,0 +1,17 @@
+.message{
+    background-color: black;
+    /* padding-top: 20px; */
+    color: rgb(160, 157, 155);
+    border-left: 1px solid rgb(102, 94, 94);
+    border-right: 1px solid rgb(102, 94, 94);
+    height: 100vh;
+    overflow-x: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar{
+
+      width: 5px;
+      color: rgb(175, 19, 19);
+      background-color: #302e2e;
+    }
+}
