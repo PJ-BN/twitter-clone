@@ -335,3 +335,33 @@ def followuser(request):
         return JsonResponse(response)
     
     return JsonResponse({"status":"failed"})
+
+@csrf_exempt
+def getfollowers(request):
+    """
+    Retrieves the followers.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response containing the followers.
+    """
+    try:
+        data = json.loads(request.body)
+        print(data)
+        username = data['username']
+        user = UserData.objects.get(username = username)
+        follower = UserFollowInfos.objects.filter(follow = user)
+        print(" follower" ,follower)
+        serializerFollower = UserFollowInfosSerializer(follower, many = True).data
+        for i in serializerFollower:
+            userid = i['username']
+            user_to = UserData.objects.get(id = userid)
+            i['username'] =user_to.username
+            i['name']= user_to.firstname + " " + user_to.lastname
+        print(serializerFollower)
+        return JsonResponse(serializerFollower, safe=False)
+    except:
+        print(" no data found")
+    return JsonResponse({"status":"failed"})

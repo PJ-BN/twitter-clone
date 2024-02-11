@@ -1,6 +1,10 @@
-import React , {useState} from 'react';
+import React , {useState, useRef, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faEnvelope } from '@fortawesome/free-solid-svg-icons'; // Import faSearch icon
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+
 import "./message.css"
 
 interface MessageProps {
@@ -12,6 +16,10 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
 
+    const divRef = useRef<HTMLDivElement>(null);
+
+    const [followerData, setfollowerData] = useState<any[]>([]);
+
     const tweet = {
         id: 1,
         name: "Luffy",
@@ -20,6 +28,37 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
         date: "2021-08-02",
         avatar: "luffy.jpg"
     }
+
+    const userClicked = ( ) => {
+        console.log('user clicked')
+        if (divRef.current) {
+            // Focus the div
+            divRef.current.focus();
+          }
+    }
+    interface sendUsername {
+        username: string;
+    }
+
+    
+    useEffect(() => {
+        const sendUsernameToServer: sendUsername = {
+            username: Cookies.get("username") as string
+        }
+        const fetchData = async () => {
+          try {
+            const url = "api/get/followers/"
+            axios.post(url, sendUsernameToServer)
+            .then(response =>{
+              console.log(response.data)
+            //   setfollowerData(response.data.data)
+            })
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        fetchData()
+      }, [])
     
     return (
         <div className="message">
@@ -42,9 +81,15 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
             </div>
 
             <div className='message-user'>
-                <nav>
+                {/* <nav> */}
 
-                    <div key={tweet.id} className="tweet-section">
+                    <div 
+                    key={tweet.id} 
+                    className="tweet-section" 
+                    onClick={userClicked}
+                    ref={divRef}
+                    tabIndex={0} // Make the div focusable
+                    >
                         <div className="post post-tweet">
                             <div className="profile-pic">
                                 <img
@@ -64,7 +109,7 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
                         </div>
                     </div>
 
-                    <div key={tweet.id} className="tweet-section">
+                    <div key={tweet.id+1} className="tweet-section">
                         <div className="post post-tweet">
                             <div className="profile-pic">
                                 <img
@@ -83,7 +128,7 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
                             </div>
                         </div>
                     </div>
-                </nav>
+                {/* </nav> */}
 
 
             </div>
