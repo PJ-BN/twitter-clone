@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, {useState, useEffect}  from 'react';
 import Navbar from '../navbar-logged/Navbar';
 import CentralNavbar from '../home/home';
 import SearchNavbar from '../home/search_side';
@@ -14,9 +14,25 @@ interface ChildProps {
 
 const Navigation2: React.FC<ChildProps> = () => {
 
-    
+    const [messageUserName, setMessageUserName] =useState<any|null>(null)
     // console.log(logindetail)
+    const handleMessageChild = (data: any) => {
+        console.log("data recieved")
+        setMessageUserName(data)
+    }
 
+    useEffect(() => {
+        console.log("form effect"+messageUserName)
+    
+    },[messageUserName])
+    const messageroute = () =>{
+        console.log("reached here"+messageUserName)
+     return(
+         <Route path = '/messages' element = {<MessageContent getnames={messageUserName}/>}></Route>
+ 
+     )
+
+   }
 
 
     return(
@@ -38,8 +54,7 @@ const Navigation2: React.FC<ChildProps> = () => {
                         <Route path = '/notifications' element = {"hello"}></Route>
                         <Route path = '/bookmarks' element = {"hello"}></Route>
                         <Route path = '/communities' element = {"hello"}></Route>
-                        <Route path = '/messages' element = {<MessageContent />}></Route>
-
+                        {messageroute()}
 
 
 
@@ -48,7 +63,7 @@ const Navigation2: React.FC<ChildProps> = () => {
                 <div>
                     <Routes>
                     <Route path = '*' element = {<SearchNavbar />}></Route>
-                    <Route path = '/messages' element = {< Message  content = "ad" sender = "bc" timestamp='12'/>}></Route>
+                    <Route path = '/messages' element = {< Message  sendDataToParent={handleMessageChild}/>}></Route>
 
 
 

@@ -176,7 +176,6 @@ const Tweet: React.FC<ChildProps> = ({ user, fetched, startpage})=> {
               </div>
             </div>
 
-            <hr />
           </div>
       ))}
        <div id="scrollObserver" style={{ height: '10px', margin: '5px' }}></div>

@@ -7,14 +7,12 @@ import Cookies from 'js-cookie';
 
 import "./message.css"
 
-interface MessageProps {
-    content: string;
-    sender: string;
-    timestamp: string;
-}
+interface ChildProps {
+    sendDataToParent: (data: any) => void; // Define the function type
+  }
 
 
-const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
+const Message: React.FC<ChildProps> = ({ sendDataToParent }) => {
 
     const divRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -24,6 +22,7 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
    // Function to handle clicking the div
    const userClicked = (index: number, followers: object) => {
     console.log('user clicked');
+    sendDataToParent(followers)
     console.log(followers)
     if (divRefs.current[index]) {
       divRefs.current[index]?.focus();

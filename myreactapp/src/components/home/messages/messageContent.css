@@ -1,7 +1,5 @@
 
-hr{
-  border: 1px solid white;
-}
+
 
 .message{
     background-color: black;
@@ -25,26 +23,36 @@ hr{
 }
 
 .message-view{
-  background-color: black;
+  background-color: transparent;
     /* padding-top: 20px; */
     color: rgb(160, 157, 155);
-    padding-top: 20px;
-    height: 100vh;
-    overflow-x: auto;
-    overflow-x: hidden;
+  }
+  
+.chat-box{
+  height: 87vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column-reverse;
 
-    &::-webkit-scrollbar{
+  flex-grow: 1; /* Make the chat box take up remaining space */
+  overflow-y: scroll; /* Add vertical scrollbar */
 
-      width: 5px;
-      color: rgb(175, 19, 19);
-      background-color: #302e2e;
-    }
+  &::-webkit-scrollbar{
+
+    width: 5px;
+    color: rgb(175, 19, 19);
+    background-color: #302e2e;
+  }
+
 }
 
 .username-section{
-  width: 45%;
+  width: 44.5%;
   display:flex;
   position: fixed;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 
@@ -52,10 +60,12 @@ hr{
   bottom: 0;
   position: fixed;
   /* display:flex; */
-  width: 45%;
+  width: 44.8%;
   border-top: gray solid 1px;
   align-items: center;
   justify-content: center;
+  background-color: black;
+  z-index: 1;
 }
 .message-input-bar{
 
@@ -72,6 +82,7 @@ hr{
   flex: 1;
   width: 80%;
   padding: 12px;
+  
   /* margin-right: 8px; */
   border-radius: 15px;
   outline: none;
@@ -96,9 +107,6 @@ hr{
   height: 24px;
 }
 
-.send-button:hover {
-  /* width: 24px;
-  height: 24px; */
-
-  /* background-color: white; */
+.message-content{
+  background-color: rgba(29,155,240,1.00);
 }
