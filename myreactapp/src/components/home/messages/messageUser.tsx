@@ -16,26 +16,19 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
 
-    const divRef = useRef<HTMLDivElement>(null);
+    const divRefs = useRef<Array<HTMLDivElement | null>>([]);
 
     const [followerData, setfollowerData] = useState<any[]>([]);
 
-    const tweet = {
-        id: 1,
-        name: "Luffy",
-        username: "luffy",
-        content: "I'm gonna be the king of the pirates",
-        date: "2021-08-02",
-        avatar: "luffy.jpg"
+    
+   // Function to handle clicking the div
+   const userClicked = (index: number, followers: object) => {
+    console.log('user clicked');
+    console.log(followers)
+    if (divRefs.current[index]) {
+      divRefs.current[index]?.focus();
     }
-
-    const userClicked = ( ) => {
-        console.log('user clicked')
-        if (divRef.current) {
-            // Focus the div
-            divRef.current.focus();
-          }
-    }
+  };
     interface sendUsername {
         username: string;
     }
@@ -50,8 +43,7 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
             const url = "api/get/followers/"
             axios.post(url, sendUsernameToServer)
             .then(response =>{
-              console.log(response.data)
-            //   setfollowerData(response.data.data)
+              setfollowerData(response.data)
             })
           } catch (error) {
             console.log(error)
@@ -59,6 +51,8 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
         }
         fetchData()
       }, [])
+
+      console.log(followerData)
     
     return (
         <div className="message">
@@ -82,13 +76,14 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
 
             <div className='message-user'>
                 {/* <nav> */}
-
+                {followerData.map((followers, index) => (
+                
                     <div 
-                    key={tweet.id} 
+                    key={followers.id} 
                     className="tweet-section" 
-                    onClick={userClicked}
-                    ref={divRef}
+                    onClick={ () => userClicked(index, followers)}
                     tabIndex={0} // Make the div focusable
+                    ref={(el) => (divRefs.current[index] = el)} 
                     >
                         <div className="post post-tweet">
                             <div className="profile-pic">
@@ -102,33 +97,18 @@ const Message: React.FC<MessageProps> = ({ content, sender, timestamp }) => {
 
                                     <div className="tweet-user">
 
-                                        <b>{tweet.name}</b>
-                                        <span className='span-username'>@{tweet.username} .</span>
+                                        <b>{followers.name}</b>
+                                        <span className='span-username'>@{followers.username} .</span>
                                     </div>
                             </div>
                         </div>
                     </div>
+                )
+                )
+            }
 
-                    <div key={tweet.id+1} className="tweet-section">
-                        <div className="post post-tweet">
-                            <div className="profile-pic">
-                                <img
-                                src={process.env.PUBLIC_URL + "luffy.jpg"}
-                                alt="profile-pic"
-                                className="profile-pic"
-                                />
-                            </div>
-                            <div className="tweet-content">
 
-                                    <div className="tweet-user">
-
-                                        <b>{tweet.name}</b>
-                                        <span className='span-username'>@{tweet.username} .</span>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                {/* </nav> */}
+                    
 
 
             </div>
