@@ -1,4 +1,5 @@
 
+import Cookies from 'js-cookie';
 import React, { useEffect , useState} from 'react';
 
 interface getMessage{
@@ -10,7 +11,8 @@ const WebSocketComponent: React.FC<getMessage> = ({message}) => {
 
     const [ messages, setMessage ] = useState<string>('');
     useEffect(() => {
-        const socket = new WebSocket('ws://127.0.0.1:8000/ws/web/');
+        const url = "ws://127.0.0.1:8000/ws/web/"+ Cookies.get("username")+"/"
+        const socket = new WebSocket(url);
 
         socket.onopen = () => {
             console.log('WebSocket connected');

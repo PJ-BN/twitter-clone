@@ -2,7 +2,8 @@ import React , {useState, useEffect} from 'react';
 import "./messageContent.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import WebSocketComponent from '../WebSocketComponent';
+// import WebSocketComponent from '../WebSocketComponent';
+import Cookies from 'js-cookie';
 
 
 
@@ -14,12 +15,40 @@ interface MessageContentProps {
 const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
     
     
+    const [message, setMessage] = useState('');
+    const [usermessage, setUsermessage] = useState('');
     
     const [messageUserName , setMessageUserName] = useState<string| null>(null);
     useEffect(()=>{
         setMessageUserName(getnames?.name)
 
     },[getnames])
+
+    console.log("names:"+getnames?.name)
+
+    useEffect(() => {
+        if(messageUserName){
+
+            const url = "ws://127.0.0.1:8000/ws/web/"+ Cookies.get("username")+messageUserName.replace(" ", "")+"/"
+            const socket = new WebSocket(url);
+    
+            socket.onopen = () => {
+                console.log('WebSocket connected');
+                socket.send(JSON.stringify({ message: message }))
+            };
+    
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                console.log('Received message:', message);
+                setMessage(message.message);
+                // Handle received messages
+            };
+    
+            return () => {
+                socket.close();
+            };
+        }
+    }, [message, messageUserName]);
 
     const firstView = () =>{
         return(
@@ -29,20 +58,20 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
         )
     }
 
-    const [message, setMessage] = useState('');
 
-    const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setMessage(event.target.value);
-    };
+    // const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   setMessage(event.target.value);
+    // };
   
     const handleSendMessage = () => {
       if (message.trim() !== '') {
         // sendMessage(message);
-        setMessage('');
+        setUsermessage('');
       }
+      setMessage(usermessage)
     }
 
-    const trydata = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+    // const trydata = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     const messageView = () =>{
         const followers = {
             name: messageUserName,
@@ -76,8 +105,8 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
 
                 </div >
                 <div  className="chat-box">
-                    {trydata.map((data, index) => (
-                        <div key={index} className="chat-box-section">
+                    {/* {trydata.map((data, index) => ( */}
+                        <div  className="chat-box-section">
                             <div className="chat-box-content">
                                 <div className="chat-user">
                                     <b>Luffy</b>
@@ -87,14 +116,14 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
                                     {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam inventore optio laborum quis, officiis quas expedita tenetur eaque nobis nihil ab recusandae magni laudantium temporibus fuga dolor voluptatum voluptatem reiciendis? */}
                                 </div>
                                 <div>
-                                    {data}
+                                    {message}
                                 </div>
                             </div>
                         </div>
-                    )
-                    )
-                }
-                <WebSocketComponent  message = {message}/>
+                    {/* ) */}
+                    {/* ) */}
+                {/* } */}
+                {/* <WebSocketComponent  message = {message}/> */}
 
                 </div>
                 
@@ -116,8 +145,8 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
                 <div className='message-input-bar'>
                     <input
                         type="text"
-                        value={message}
-                        onChange={handleMessageChange}
+                        value={usermessage}
+                        onChange={(e) => setUsermessage(e.target.value)}
                         placeholder="Start a new message"
                         className="chat-input"
                     />
