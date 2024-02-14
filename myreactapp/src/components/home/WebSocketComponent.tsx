@@ -1,7 +1,14 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect , useState} from 'react';
 
-const WebSocketComponent: React.FC = () => {
+interface getMessage{
+    message: string;
+
+}
+
+const WebSocketComponent: React.FC<getMessage> = ({message}) => {
+
+    const [ messages, setMessage ] = useState<string>('');
     useEffect(() => {
         const socket = new WebSocket('ws://127.0.0.1:8000/ws/web/');
 
@@ -13,6 +20,7 @@ const WebSocketComponent: React.FC = () => {
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
             console.log('Received message:', message);
+            setMessage(message.message);
             // Handle received messages
         };
 
@@ -21,7 +29,7 @@ const WebSocketComponent: React.FC = () => {
         };
     }, []);
 
-    return <div>WebSocket Component</div>;
+    return <div>{messages}</div>;
 };
 
 export default WebSocketComponent;

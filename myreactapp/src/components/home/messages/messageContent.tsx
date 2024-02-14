@@ -2,6 +2,7 @@ import React , {useState, useEffect} from 'react';
 import "./messageContent.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
+import WebSocketComponent from '../WebSocketComponent';
 
 
 
@@ -83,7 +84,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
                                 </div>
                                 <div className="chat-value">
                                     <p>Hey, how are you?</p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam inventore optio laborum quis, officiis quas expedita tenetur eaque nobis nihil ab recusandae magni laudantium temporibus fuga dolor voluptatum voluptatem reiciendis?
+                                    {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam inventore optio laborum quis, officiis quas expedita tenetur eaque nobis nihil ab recusandae magni laudantium temporibus fuga dolor voluptatum voluptatem reiciendis? */}
                                 </div>
                                 <div>
                                     {data}
@@ -93,6 +94,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
                     )
                     )
                 }
+                <WebSocketComponent  message = {message}/>
 
                 </div>
                 
