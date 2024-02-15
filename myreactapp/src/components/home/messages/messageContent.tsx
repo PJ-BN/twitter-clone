@@ -17,6 +17,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
     
     const [message, setMessage] = useState('');
     const [usermessage, setUsermessage] = useState('');
+    const[getMessage, setGetMessage] = useState<any>(null)
     
     const [messageUserName , setMessageUserName] = useState<string| null>(null);
     useEffect(()=>{
@@ -40,7 +41,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 console.log('Received message:', message);
-                setMessage(message.message);
+                setGetMessage(message.message);
                 // Handle received messages
             };
     
@@ -116,7 +117,7 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
                                     {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam inventore optio laborum quis, officiis quas expedita tenetur eaque nobis nihil ab recusandae magni laudantium temporibus fuga dolor voluptatum voluptatem reiciendis? */}
                                 </div>
                                 <div>
-                                    {message}
+                                    {getMessage}
                                 </div>
                             </div>
                         </div>
