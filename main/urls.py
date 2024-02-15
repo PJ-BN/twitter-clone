@@ -13,6 +13,7 @@ urlpatterns = [
     path('profile/<str:pk>/' , sendname, name = "send_name"),
     path('follow/', followuser, name = "follow_user"),
     path('get/followers/', getfollowers, name = "get_followers"),
+    path('message', send_message, name = "message"),
 ]
 
 """

@@ -12,7 +12,13 @@ class TweetDisplay(admin.ModelAdmin):
     
 class UserFollowInfoDisplay(admin.ModelAdmin):
     list_display = ( "username", "follow")
+    
+    
+class MessageDisplay(admin.ModelAdmin):
+    list_display = ("sender", "receiver", "message", "date")
 
+
+admin.site.register(MessageData, MessageDisplay)
 admin.site.register(UserData, UserDisplay)
 admin.site.register(TweetData, TweetDisplay)
 admin.site.register(UserFollowInfos, UserFollowInfoDisplay)

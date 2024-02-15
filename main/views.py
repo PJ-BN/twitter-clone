@@ -365,3 +365,21 @@ def getfollowers(request):
     except:
         print(" no data found")
     return JsonResponse({"status":"failed"})
+
+@csrf_exempt
+def send_message(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+        sender_id = data['sender_id']
+        receiver_id = data['receiver_id']
+        message = data['content']
+        message = MessageData(sender_id=sender_id, receiver_id=receiver_id, message=message)
+        message.save()
+        return JsonResponse({'message': 'Message sent successfully.'}, status=201)
+    else:
+        sender_id = request.GET['sender_id']
+        receiver_id = request.GET['receiver_id']
+        messages = MessageData.objects.filter(sender_id=sender_id, receiver_id=receiver_id)
+        messages_list = list(messages.values())
+        return JsonResponse(messages_list, safe=False)

@@ -38,3 +38,12 @@ class UserFollowInfos(models.Model):
     class Meta:
         ordering = ['username']
 
+
+class MessageData(models.Model):
+    sender = models.ForeignKey(UserData, on_delete = models.CASCADE, related_name = "sender")
+    receiver = models.ForeignKey(UserData, on_delete = models.CASCADE, related_name = "receiver")
+    message = models.CharField(max_length = 150)
+    date = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['date']
