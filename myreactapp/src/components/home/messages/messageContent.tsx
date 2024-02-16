@@ -25,7 +25,6 @@ const MessageContent: React.FC<MessageContentProps> = ({ getnames }) => {
 
     },[getnames])
 
-    console.log("names:"+getnames?.name)
 
     useEffect(() => {
         if(messageUserName){
